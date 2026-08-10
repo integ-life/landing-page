@@ -1,6 +1,7 @@
 const copy = {
   en: {
     openApp: "Open the app",
+    brandResources: "Brand resources",
     eyebrow: "ONE DOMAIN / MANY TOOLS",
     heroTitle: "A small constellation for a more intentional life.",
     heroLede:
@@ -35,6 +36,7 @@ const copy = {
   },
   zh: {
     openApp: "打开 App",
+    brandResources: "品牌资源",
     eyebrow: "一个域名 / 多个工具",
     heroTitle: "一组小而专注的工具，连接更有意识的生活。",
     heroLede:
@@ -70,7 +72,7 @@ function setLanguage(language) {
   const selected = copy[language] ? language : "en";
   document.documentElement.lang = selected === "zh" ? "zh-CN" : "en";
   nodes.forEach((node) => {
-    node.textContent = copy[selected][node.dataset.copy];
+    if (copy[selected][node.dataset.copy]) node.textContent = copy[selected][node.dataset.copy];
   });
   buttons.forEach((button) => {
     button.setAttribute("aria-pressed", String(button.dataset.language === selected));
