@@ -13,6 +13,12 @@ hub. Keep `docs/logo192.png` as a compatibility alias for existing sites.
 - `integ-life-wordmark.svg` — scalable horizontal wordmark
 - `brand-tokens.css` — canonical public color tokens
 
+The coherent master/product logo system lives in `docs/assets/brand/family/`.
+Every product logo retains the master leaf and adds one fixed-position product
+badge. Current product-owned icons are mirrored in
+`docs/assets/brand/originals/` as migration references; product repositories
+remain their source of truth until migration is explicitly approved.
+
 ## Local preview
 
 ```bash

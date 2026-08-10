@@ -95,6 +95,12 @@ a {
   font-style: italic;
 }
 
+.wordmark-logo {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+}
+
 .header-actions {
   display: flex;
   align-items: center;
@@ -422,6 +428,12 @@ h1 {
   border-radius: 50%;
   font-family: "Bodoni 72", Didot, serif;
   font-size: 1.35rem;
+}
+
+.product-card img.card-glyph {
+  border: 0;
+  border-radius: 1rem;
+  object-fit: contain;
 }
 
 .card-domain {
