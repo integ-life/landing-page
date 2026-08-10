@@ -40,6 +40,9 @@
 .guidance-grid h3, .guidance-grid p { margin: 0; }
 .guidance-grid p { grid-column: 2; color: var(--muted); }
 .guidance-sign { grid-row: span 2; font-family: "Bodoni 72", Didot, serif; font-size: 2rem; line-height: 1; }
+@media (max-width: 43.99rem) {
+  .family-card-master { grid-template-columns: minmax(0, 1fr); }
+}
 @media (min-width: 44rem) {
   .family-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .family-card-master { grid-column: span 2; }
