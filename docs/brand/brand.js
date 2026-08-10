@@ -2,10 +2,9 @@ const brandCopy = {
   en: {
     directory: "Product directory", brandEyebrow: "OFFICIAL BRAND RESOURCES", brandTitle: "One home for the Integ.Life identity.",
     brandLede: "Download the current marks, use the shared palette, and keep every Integ.Life surface recognizably related.",
-    familyTitle: "One living system. Seven distinct doors.", familyNote: "Every product keeps the master leaf and gains one consistently placed badge for its own job.",
+    familyTitle: "One living system. Nine distinct doors.", familyNote: "Every product keeps the master leaf and gains one consistently placed badge for its own job.",
     masterRole: "MASTER BRAND", productRole: "PRODUCT", downloadSvg: "SVG ↓", chineseChess: "Chinese Chess",
     systemRuleLabel: "SYSTEM RULE", systemRule: "The leaf establishes family. The lower-right badge names the product. Badge size and position never change.",
-    originalsTitle: "The icons people already know.", originalsNote: "These current product icons are preserved here as migration references. They remain owned by their product repositories.",
     logosTitle: "The master mark, ready for use.", logosNote: "Use the wordmark when space allows. Use the master icon for compact organization-level placements.",
     wordmarkTitle: "Horizontal wordmark", masterIconTitle: "Master icon", download: "Download ↓",
     colorsTitle: "Warm paper. Clear ink. Small signals.", colorsNote: "Paper and ink carry the interface. Accent colors organize information; they are not decorative gradients.",
@@ -18,10 +17,9 @@ const brandCopy = {
   zh: {
     directory: "产品目录", brandEyebrow: "官方品牌资源", brandTitle: "Integ.Life 品牌资源，统一放在这里。",
     brandLede: "下载当前标识、使用统一色彩，让每个 Integ.Life 界面彼此独立又清晰相连。",
-    familyTitle: "一个有生命的体系，七个各自清晰的入口。", familyNote: "每个产品都保留母标羽叶，并在同一位置加入代表自身任务的徽记。",
+    familyTitle: "一个有生命的体系，九个各自清晰的入口。", familyNote: "每个产品都保留母标羽叶，并在同一位置加入代表自身任务的徽记。",
     masterRole: "主品牌", productRole: "产品", downloadSvg: "SVG ↓", chineseChess: "中国象棋",
     systemRuleLabel: "体系规则", systemRule: "羽叶负责建立家族感，右下徽记负责指认产品；徽记的尺寸和位置始终不变。",
-    originalsTitle: "用户已经熟悉的现有图标。", originalsNote: "这里保留各产品当前使用的 icon，作为迁移参考；它们仍由对应产品仓库维护。",
     logosTitle: "可直接使用的主品牌素材。", logosNote: "空间充足时使用横向文字标识；组织级的紧凑位置使用主品牌图标。",
     wordmarkTitle: "横向文字标识", masterIconTitle: "主品牌图标", download: "下载 ↓",
     colorsTitle: "温暖纸色，清晰墨色，克制信号色。", colorsNote: "纸色与墨色构成界面主体；强调色用于组织信息，不用于装饰性渐变。",
