@@ -1,0 +1,12 @@
+---
+layout: null
+---
+{
+  "schema": "integ.life/build-version/v1",
+  "repository": "integ-life/landing-page",
+  "service": "integ.life",
+  "version": "git-{{ site.github.build_revision | slice: 0, 12 }}",
+  "commit": "{{ site.github.build_revision }}",
+  "builtAt": "{{ site.time | date_to_xmlschema }}",
+  "dirty": false
+}
