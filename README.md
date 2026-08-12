@@ -26,3 +26,8 @@ python3 -m http.server 8080 --directory docs
 
 GitHub Pages publishes `docs/` from the `main` branch to `https://integ.life`.
 The Integ.Life application itself is deployed separately at `https://app.integ.life`.
+
+`docs/service-worker.js` is a permanent retirement worker for the PWA that used
+to be served from `https://integ.life`. Do not remove or rename it: browsers with
+the legacy root-scope registration must be able to update that exact URL, clear
+the old Cache Storage entries, and unregister the worker.

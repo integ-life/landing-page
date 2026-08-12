@@ -68,6 +68,28 @@ const copy = {
 const buttons = document.querySelectorAll("[data-language]");
 const nodes = document.querySelectorAll("[data-copy]");
 
+async function retireLegacyServiceWorker() {
+  if (!("serviceWorker" in navigator)) return;
+
+  try {
+    const hadController = Boolean(navigator.serviceWorker.controller);
+    const registrations = await navigator.serviceWorker.getRegistrations();
+    await Promise.all(registrations.map((registration) => registration.unregister()));
+
+    if ("caches" in window) {
+      const cacheNames = await caches.keys();
+      await Promise.all(cacheNames.map((cacheName) => caches.delete(cacheName)));
+    }
+
+    if (hadController && sessionStorage.getItem("legacy-pwa-retired") !== "true") {
+      sessionStorage.setItem("legacy-pwa-retired", "true");
+      window.location.reload();
+    }
+  } catch (error) {
+    console.warn("Unable to retire the legacy service worker", error);
+  }
+}
+
 function setLanguage(language) {
   const selected = copy[language] ? language : "en";
   document.documentElement.lang = selected === "zh" ? "zh-CN" : "en";
@@ -88,3 +110,5 @@ const preferred =
   localStorage.getItem("integ-life-language") ||
   (navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en");
 setLanguage(preferred);
+
+void retireLegacyServiceWorker();
