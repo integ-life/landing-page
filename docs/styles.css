@@ -284,24 +284,39 @@ h1 {
   left: 45%;
 }
 
-.star-debate {
-  top: 24%;
-  right: 6%;
+.star-chat {
+  top: 14%;
+  right: 15%;
+}
+
+.star-xiangqi {
+  top: 42%;
+  right: 1%;
 }
 
 .star-chess {
-  right: 13%;
-  bottom: 12%;
+  right: 14%;
+  bottom: 13%;
 }
 
 .star-snake {
-  bottom: 5%;
-  left: 30%;
+  bottom: 3%;
+  left: 45%;
+}
+
+.star-games {
+  bottom: 14%;
+  left: 14%;
+}
+
+.star-tools {
+  top: 42%;
+  left: 1%;
 }
 
 .star-blog {
-  bottom: 30%;
-  left: 3%;
+  top: 14%;
+  left: 15%;
 }
 
 .constellation-note {
@@ -465,10 +480,14 @@ h1 {
 }
 
 .card-debate:hover,
-.card-debate:focus-visible {
+.card-debate:focus-visible,
+.card-chat:hover,
+.card-chat:focus-visible {
   background: #eaded6;
 }
 
+.card-xiangqi:hover,
+.card-xiangqi:focus-visible,
 .card-chess:hover,
 .card-chess:focus-visible {
   background: #ead8b6;
@@ -482,6 +501,16 @@ h1 {
 .card-blog:hover,
 .card-blog:focus-visible {
   background: #dedce8;
+}
+
+.card-games:hover,
+.card-games:focus-visible {
+  background: #d8e9e4;
+}
+
+.card-tools:hover,
+.card-tools:focus-visible {
+  background: #dbe6ef;
 }
 
 .identity {
@@ -625,6 +654,8 @@ footer p {
   }
 
   .product-card {
+    grid-column: span 4;
+    min-width: 0;
     min-height: 27rem;
     border-right: 1px solid var(--ink);
   }
@@ -637,17 +668,6 @@ footer p {
     border-right: 0;
   }
 
-  .card-app,
-  .card-debate,
-  .card-snake {
-    grid-column: span 5;
-  }
-
-  .card-lang,
-  .card-chess,
-  .card-blog {
-    grid-column: span 7;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

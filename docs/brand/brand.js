@@ -2,8 +2,8 @@ const brandCopy = {
   en: {
     directory: "Product directory", brandEyebrow: "OFFICIAL BRAND RESOURCES", brandTitle: "One home for the Integ.Life identity.",
     brandLede: "Download the current marks, use the shared palette, and keep every Integ.Life surface recognizably related.",
-    familyTitle: "One living system. Nine distinct doors.", familyNote: "Every product keeps the master leaf and gains one consistently placed badge for its own job.",
-    masterRole: "MASTER BRAND", productRole: "PRODUCT", downloadSvg: "SVG ↓", chineseChess: "Chinese Chess",
+    familyTitle: "One living system. Ten distinct doors.", familyNote: "Every product keeps the master leaf and gains one consistently placed badge for its own job.",
+    masterRole: "MASTER BRAND", productRole: "PRODUCT", downloadSvg: "SVG ↓", chineseChess: "Chinese Chess", internationalChess: "Chess",
     systemRuleLabel: "SYSTEM RULE", systemRule: "The leaf establishes family. The lower-right badge names the product. Badge size and position never change.",
     logosTitle: "The master mark, ready for use.", logosNote: "Use the wordmark when space allows. Use the master icon for compact organization-level placements.",
     wordmarkTitle: "Horizontal wordmark", masterIconTitle: "Master icon", download: "Download ↓",
@@ -17,8 +17,8 @@ const brandCopy = {
   zh: {
     directory: "产品目录", brandEyebrow: "官方品牌资源", brandTitle: "Integ.Life 品牌资源，统一放在这里。",
     brandLede: "下载当前标识、使用统一色彩，让每个 Integ.Life 界面彼此独立又清晰相连。",
-    familyTitle: "一个有生命的体系，九个各自清晰的入口。", familyNote: "每个产品都保留母标羽叶，并在同一位置加入代表自身任务的徽记。",
-    masterRole: "主品牌", productRole: "产品", downloadSvg: "SVG ↓", chineseChess: "中国象棋",
+    familyTitle: "一个有生命的体系，十个各自清晰的入口。", familyNote: "每个产品都保留母标羽叶，并在同一位置加入代表自身任务的徽记。",
+    masterRole: "主品牌", productRole: "产品", downloadSvg: "SVG ↓", chineseChess: "中国象棋", internationalChess: "国际象棋",
     systemRuleLabel: "体系规则", systemRule: "羽叶负责建立家族感，右下徽记负责指认产品；徽记的尺寸和位置始终不变。",
     logosTitle: "可直接使用的主品牌素材。", logosNote: "空间充足时使用横向文字标识；组织级的紧凑位置使用主品牌图标。",
     wordmarkTitle: "横向文字标识", masterIconTitle: "主品牌图标", download: "下载 ↓",
