@@ -1,6 +1,8 @@
 # integ.life Landing Page
 
-Static bilingual directory for the Integ.Life product family.
+Static multilingual directory for the Integ.Life product family. Its core page
+follows the workspace locale contract: `zh-CN`, `en`, `es`, `fr`, `de`, `id`,
+`vi`, `th`, `ja`, and `ko`.
 
 ## Brand resources
 
