@@ -11,9 +11,11 @@ const copy = {
     principleThree: "Independent by default.",
     directoryEyebrow: "THE DIRECTORY",
     directoryTitle: "Choose your door.",
-    directoryNote: "Nine live products. One deliberately small ecosystem.",
+    directoryNote: "Ten live products. One deliberately small ecosystem.",
     appDescription:
       "Private, offline-first notes for memory, ideas, and AI-assisted reflection.",
+    calendarDescription:
+      "See todos, notes, ideas, transactions, and focus sessions together by day.",
     langDescription:
       "Turn interests into short readings, tappable vocabulary, quick checks, and structured language courses.",
     chatDescription:
@@ -55,8 +57,9 @@ const copy = {
     principleThree: "默认保持独立。",
     directoryEyebrow: "产品目录",
     directoryTitle: "选择你的入口。",
-    directoryNote: "九个在线产品，一套刻意保持小而清晰的生态。",
+    directoryNote: "十个在线产品，一套刻意保持小而清晰的生态。",
     appDescription: "私密、离线优先的 Notes，用于沉淀记忆、想法和 AI 辅助复盘。",
+    calendarDescription: "按日期统一查看待办、笔记、想法、记账和专注记录。",
     langDescription: "把兴趣变成短阅读、可点词汇、快速检查和结构化语言课程。",
     chatDescription: "Slack 式 Room 与私聊，让人与 Agent 通过消息、Thread、文件、Canvas 和任务协作。",
     chessTitle: "中国象棋",
