@@ -27,7 +27,7 @@ python3 -m http.server 8080 --directory docs
 ## Deployment
 
 GitHub Pages publishes `docs/` from the `main` branch to `https://integ.life`.
-The Integ.Life application itself is deployed separately at `https://app.integ.life`.
+Integ.Life Notes is deployed separately at `https://notes.integ.life`; `https://app.integ.life` redirects to the product directory while retaining its legacy `/api/*` compatibility route.
 
 `docs/service-worker.js` is a permanent retirement worker for the PWA that used
 to be served from `https://integ.life`. Do not remove or rename it: browsers with

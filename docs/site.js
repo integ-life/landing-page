@@ -13,7 +13,7 @@ const copy = {
     directoryTitle: "Choose your door.",
     directoryNote: "Nine live products. One deliberately small ecosystem.",
     appDescription:
-      "An offline-first personal operating system for notes, tasks, goals, focus, relationships, accounting, and AI-assisted review.",
+      "Private, offline-first notes for memory, ideas, and AI-assisted reflection.",
     langDescription:
       "Turn interests into short readings, tappable vocabulary, quick checks, and structured language courses.",
     chatDescription:
@@ -56,7 +56,7 @@ const copy = {
     directoryEyebrow: "产品目录",
     directoryTitle: "选择你的入口。",
     directoryNote: "九个在线产品，一套刻意保持小而清晰的生态。",
-    appDescription: "离线优先的个人生活操作系统，连接笔记、任务、目标、专注、关系、记账与 AI 复盘。",
+    appDescription: "私密、离线优先的 Notes，用于沉淀记忆、想法和 AI 辅助复盘。",
     langDescription: "把兴趣变成短阅读、可点词汇、快速检查和结构化语言课程。",
     chatDescription: "Slack 式 Room 与私聊，让人与 Agent 通过消息、Thread、文件、Canvas 和任务协作。",
     chessTitle: "中国象棋",
