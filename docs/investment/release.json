@@ -1,11 +1,15 @@
 {
-  "release": "20260908-investment-v1",
+  "release": "20260908-investment-v2",
   "evidence": "MODEL-ONLY",
   "manifest_sha256": "fe0e2817f0be8014f810c4e36120483c6477f44cf603598dbaceb317d9afa97f",
+  "demo_manifest_sha256": "de297ca1283900616512d3b8649b9328975c697ebbb1131f66a1d4ed0a67ea80",
   "assets": {
-    "index.html": "b3a50f019cdf0d457892e962f61a0d1f6ca3022e9e69f4ca68323690f07b4d2c",
+    "index.html": "b92d2915050c1889b8cf68e46597bf2a83d07fc5eff730ba399ff6ef59b18dbe",
     "investment.css": "aaf74b840cb1d8e5db23e4ce5eedf0175fa573ee61984b668a7dfa601c4ba3a8",
     "investment.mjs": "94c26389e7f7f15215afa9e28b4f3b8e75303be0562183fbcc50d37d3fcb3569",
-    "research-core.mjs": "5f348ad54a362e340ac73ed3e46e1bff68db582c5c0bb594e5382664a99b80e8"
+    "research-core.mjs": "5f348ad54a362e340ac73ed3e46e1bff68db582c5c0bb594e5382664a99b80e8",
+    "demos.css": "e96f202eefa543cc5fe8ed00f0d4bfd9fc90853610214c66534131436f119d88",
+    "demos.mjs": "c704c8fcfda48ef57c22b6f7ccbd4593de0ba090ab443775c43fae2cb14a9f80",
+    "demo-core.mjs": "1632c9f21c4035f9fb63dc75bb92d38afbb7bf82ecb2fda482b6d8d9f7b5dc5d"
   }
 }

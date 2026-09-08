@@ -39,6 +39,10 @@ the old Cache Storage entries, and unregister the worker.
 `https://integ.life/investment/` is the Chinese options research workspace. It
 shows the saved SPY Wheel scenarios, daily equity, complete assignment cycles,
 cash accounting, methodology, and the limits of model-priced experiments.
+The historical demos at `/investment/#demos` compare two Wheel rules and SPY
+DCA across six independently restarted periods and two equal-funding plans.
+They include monthly playback, contributions separated from profit, daily
+profit decomposition, cash-flow-adjusted drawdowns, and downloadable ledgers.
 All Wheel performance is labeled `MODEL-ONLY`; this is a research snapshot,
 not live market data or an execution service.
 
@@ -49,8 +53,10 @@ Update the static data, validate this publication, and then publish `main`:
 cd ~/projects/options-lab
 .venv/bin/python scripts/export_investment.py \
   --out ~/projects/integ-life-landing/docs/investment/data
+.venv/bin/python scripts/run_demo_cases.py \
+  --out ~/projects/integ-life-landing/docs/investment/data/demos
 cd ~/projects/integ-life-landing
-node --test tests/investment.test.mjs
+node --test tests/investment*.test.mjs
 node scripts/build-investment.mjs
 ```
 

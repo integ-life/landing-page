@@ -14,6 +14,8 @@
   <link rel="icon" href="/assets/brand/family/integ-life.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./investment.css?v=20260908">
   <script type="module" src="./investment.mjs?v=20260908"></script>
+  <link rel="stylesheet" href="./demos.css?v=20260908-v2">
+  <script type="module" src="./demos.mjs?v=20260908-v2"></script>
 </head>
 <body>
   <a class="skip" href="#main">跳至研究内容</a>
@@ -24,7 +26,34 @@
   <main id="main" class="workspace">
     <div class="page-title"><div><p class="eyebrow">OPTIONS RESEARCH / 001</p><h1>从 The Wheel 开始</h1><p class="intro">看懂规则，再顺着交易与账本，检验结果。</p></div><div class="edition"><span class="status-dot"></span> 研究版 <span>2026.09.08</span></div></div>
     <aside class="evidence-notice"><span class="badge amber">MODEL-ONLY</span><p><strong>真实标的历史，模型期权价格。</strong>以下收益用于检验策略流程和假设；连续真实期权报价回测尚未完成。</p><a href="#data">查看数据边界 ↓</a></aside>
-    <nav class="section-nav" aria-label="研究导航"><a href="#results">策略与结果</a><a href="#replay">交易回放</a><a href="#method">如何回测</a><a href="#data">数据与限制</a></nav>
+    <nav class="section-nav" aria-label="研究导航"><a href="#demos">场景演示 · 对比定投</a><a href="#results">策略与结果</a><a href="#replay">交易回放</a><a href="#method">如何回测</a><a href="#data">数据与限制</a></nav>
+
+    <section id="demos" aria-labelledby="demos-title">
+      <div class="section-top"><div><p class="section-number">DEMO / 持续运行的盈亏</p><h2 id="demos-title">如果从这一天开始，一直做下去呢？</h2></div><p class="section-note">6 个历史阶段 × 2 种资金方式<br>标准 Wheel / 接货价下限 / SPY 定投</p></div>
+      <p class="demo-intro">选择一个阶段，沿日期观察盈亏如何变化。每个案例从现金重新启动，案例内部跨月、跨年连续持仓。这些是事后选择的教学窗口，不是样本外验证。</p>
+      <div id="demo-cases" class="demo-cases" aria-label="历史演示案例"></div>
+      <fieldset class="demo-funding"><legend>先统一三边的资金计划</legend><label><input type="radio" name="demo-funding" value="reserve" checked><span><strong>同本金 · 分 12 个月建仓</strong><small>都预留 $100,000；SPY 每月投入其中的 1/12，不再追加本金。</small></span></label><label><input type="radio" name="demo-funding" value="monthly"><span><strong>持续月供 · 每月追加 $1,000</strong><small>初始均为 $100,000；SPY 首日买入，从次月起三个账户同时月供。</small></span></label></fieldset>
+      <div id="demo-status" role="status" class="load-status">正在读取历史演示…</div>
+      <div id="demo-content" hidden>
+        <div class="demo-question"><h3 id="demo-question"></h3><p id="demo-context"></p><p id="demo-funding-note"></p></div>
+        <div id="demo-end-metrics" class="demo-end-metrics" aria-live="polite"></div>
+        <div class="demo-chart-card">
+          <div class="chart-heading"><div><h3>收到权利金之后，账户真的赚了吗？</h3><p>默认画出累计投资盈亏，追加本金不会让利润曲线抬高。</p></div><label class="demo-view-label">查看<select id="demo-chart-mode"><option value="net_pnl">累计盈亏 · 美元</option><option value="equity">账户净值与累计本金</option><option value="drawdown">剔除入金后的回撤</option></select></label></div>
+          <div class="legend"><span><i class="line-key wheel"></i>标准 Wheel</span><span><i class="line-key demo-floor"></i>Call 接货价下限</span><span><i class="line-key demo-dca"></i>SPY 定投</span><span id="demo-principal-key" hidden><i class="line-key demo-principal"></i>累计投入本金</span></div>
+          <div class="chart-wrap"><svg id="demo-chart" viewBox="0 0 1000 330" role="img" aria-label="所选历史阶段三种策略的盈亏比较，精确数据见日期账本和月度表"></svg></div>
+          <div id="demo-milestones" class="demo-milestones" aria-label="跳转关键日期"></div>
+          <div class="date-control"><button id="demo-prev-day" class="icon-button" aria-label="演示前一交易日">←</button><label class="sr-only" for="demo-slider">演示日期</label><input type="range" id="demo-slider" min="0" max="1" value="0"><button id="demo-next-day" class="icon-button" aria-label="演示后一交易日">→</button><label class="date-label">日期<input type="date" id="demo-date"></label><button id="demo-play" class="subtle-button" aria-pressed="false">逐月播放</button></div>
+          <div id="demo-day" class="demo-day" aria-live="polite"></div>
+          <div class="demo-ledger-top"><h3>这一天的 Wheel 盈亏拆解</h3><label>规则<select id="demo-ledger-rule"><option value="wheel">标准 Wheel</option><option value="floor">Call 接货价下限</option></select></label></div>
+          <div id="demo-ledger" class="demo-ledger"></div>
+          <div id="demo-day-events" class="demo-day-events"></div>
+          <p class="chart-footnote">接货价下限规则：Call 行权价不得低于股票接货价，因此可能更久持股或等待合适合约。它不保证保本。以上期权收益均由模型报价产生，SPY 定投使用历史股价。</p>
+        </div>
+        <div class="comparison-card"><div class="card-heading"><div><h3>每个月赚了多少，而不是入了多少钱</h3><p class="muted">括号内是从案例起点累计的投资盈亏。点击月份可跳到当月末。</p></div><div class="demo-downloads"><a id="demo-download-monthly" download>月度 CSV ↗</a><a id="demo-download-daily" download>逐日 CSV ↗</a><a id="demo-download-json" download>完整模拟账本 ↗</a></div></div><div class="table-scroll"><table><caption class="sr-only">每月追加本金、三种策略月度利润与累计利润</caption><thead><tr><th>月份</th><th>本月追加 / 累计本金</th><th>标准 Wheel</th><th>Call 接货价下限</th><th>SPY 定投</th></tr></thead><tbody id="demo-monthly"></tbody></table></div><div class="pagination"><button id="demo-month-prev" class="subtle-button">前 12 个月</button><span id="demo-month-page" aria-live="polite"></span><button id="demo-month-next" class="subtle-button">后 12 个月</button></div></div>
+        <div class="comparison-card"><div class="card-heading"><div><h3>换一个起点，结果也会改变</h3><p id="demo-overview-label" class="muted"></p></div></div><div class="table-scroll"><table><thead><tr><th>独立启动的案例</th><th>标准 Wheel<br>期末盈亏 / 最大回撤</th><th>Call 接货价下限<br>期末盈亏 / 最大回撤</th><th>SPY 定投<br>期末盈亏 / 最大回撤</th></tr></thead><tbody id="demo-overview"></tbody></table></div></div>
+      </div>
+      <details class="parameter-details demo-assumptions"><summary>这些演示怎样计算：入金、定投、利润与恢复</summary><div class="definition"><p><strong>同一资金口径：</strong>三种账户同日获得等额本金。分批建仓模式首日均有 $100,000，定投在前 12 个月的首个交易日各使用 1/12；月供模式首日股票侧投入 $100,000，次月起每月首个交易日，三个账户各追加 $1,000。</p><p><strong>定投成交：</strong>计划日期预先按交易日历确定，以当日收盘价 + $0.01/股买入整股，股票佣金设为 0。未用完的购买预算结转到之后的月度买入日；股息留在现金中，不复投。现金收益、税费均设为 0。</p><p><strong>等额投入，不代表相同风险：</strong>Wheel 始终最多 1 张合约（100 股），新增资金不会自动增加张数；定投逐步增加股票持仓。表中展示平均股票市值 / 账户净值，便于看清暴露差异；该比例不包含期权 Delta 风险。另有下方「策略与结果」中的 100 股 + 现金对照。</p><p><strong>累计投资盈亏</strong> = 当日净值 − 累计投入本金。<strong>月度利润</strong> = 月末净值 − 上月末净值 − 本月追加本金。期权开仓权利金已扣手续费与滑点，但仍需减去尚未平仓的期权负债。</p><p><strong>入金后的收益与回撤：</strong>入金按收盘时点计入，日收益 r =（当日净值 − 当日入金）/ 前日净值 − 1；将 1 + r 连乘得到单位净值，再计算时间加权收益和最大回撤。首日前的净值为初始本金。恢复日期指最大回撤谷底后，单位净值重新达到此前最高值的首个交易日；没有在窗口内恢复则明确标注。</p><p><strong>持续运行：</strong>每个日期区间独立重新回测，不从八年曲线中截取；每个案例内部跨年延续股票、未平仓期权和所有盈亏。不同案例互相重叠，不能把六段收益相加。完整逐日数据、月度数据及模拟成交均可下载。</p><p>概念参考：<a href="https://www.finra.org/investors/insights/dollar-cost-averaging" target="_blank" rel="noopener noreferrer">FINRA：定投与分批投入</a> · <a href="https://www.gipsstandards.org/standards/gips-standards-for-firms/gips-standards-handbook-for-firms/" target="_blank" rel="noopener noreferrer">CFA Institute：外部现金流与时间加权收益</a>。Wheel 的信号、成交、指派与模型限制见下方回测方法。</p></div></details>
+    </section>
 
     <section id="results" aria-labelledby="results-title">
       <div class="section-top"><div><p class="section-number">01 / 策略与结果</p><h2 id="results-title">同一个起点，不同的交易规则</h2></div><p class="section-note">SPY · 初始 $100,000 · 最多 1 张合约<br>2018.01.02 — 2025.12.31</p></div>
