@@ -1,0 +1,16 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {drawdowns,nearestDay,pageEvents,filterEvents,validateData,seriesForChart,escapeHTML,money} from '../docs/investment/research-core.mjs';
+const manifest=JSON.parse(fs.readFileSync(new URL('../docs/investment/data/manifest.json',import.meta.url)));
+const payload=JSON.parse(fs.readFileSync(new URL('../docs/investment/data/baseline.json',import.meta.url)));
+const info=manifest.scenarios.find(s=>s.id==='baseline');
+const days=validateData(info,payload);
+test('drawdown includes initial capital and prior peaks',()=>{assert.deepEqual(drawdowns([90,100,120,90],100).map(n=>Math.round(n*100)),[-10,0,0,-25]);});
+test('weekends and out-of-range dates resolve to available sessions',()=>{const d=[{date:'2024-01-05'},{date:'2024-01-08'},{date:'2024-01-09'}];assert.equal(nearestDay(d,'2024-01-07'),0);assert.equal(nearestDay(d,'2024-01-08'),1);assert.equal(nearestDay(d,'2020-01-01'),0);assert.equal(nearestDay(d,'2027-01-01'),2);});
+test('plot and end-of-period report use the same capital and data',()=>{const s=seriesForChart(days,100000,'equity',false);assert.equal(s.length,2);assert(Math.abs(s[0].values.at(-1)-info.metrics.equity.total_return)<1e-10);assert.equal(seriesForChart(days,100000,'equity',true).length,3);});
+test('first published cycle reconciles the distinct premium, stock and dividend components',()=>{const c=payload.cycles[0];assert.equal(c.start,'2018-03-13');assert.equal(c.end,'2018-07-27');const premiums=309.885994+310.10321+147.258014+314.765593;assert(Math.abs(c.cash_pnl-(premiums+400+124.6))<.00001);});
+test('missing or manipulated daily data is rejected',()=>{assert.throws(()=>validateData(info,{...payload,daily:payload.daily.slice(1)}));const p=structuredClone(payload);p.daily.at(-1)[1]+=100;assert.throws(()=>validateData(info,p));});
+test('event pages do not drop entries, and filters distinguish signals from fills',()=>{const events=filterEvents(payload.events,'trades');assert.equal(events.length,84);let seen=[];for(let i=0;i<5;i++)seen.push(...pageEvents(events,i).rows);assert.equal(seen.length,84);assert.equal(filterEvents(payload.events,'assignments').length,22);assert.deepEqual(pageEvents([],2),{rows:[],current:0,total:1});});
+test('all scenarios are labeled model-only and show their actual cash floor and IV settings',()=>{assert(manifest.scenarios.every(s=>s.evidence==='MODEL-ONLY'));assert.equal(manifest.scenarios.find(s=>s.id==='call_cost_floor').config.call_cost_floor,true);assert.equal(manifest.scenarios.find(s=>s.id==='iv_080').model.vol_scale,.8);});
+test('display escapes labels and preserves currency sign',()=>{assert.equal(escapeHTML('<script>'),'&lt;script&gt;');assert.equal(money(-100),'−$100.00');assert.equal(money(10,true),'+$10.00');});

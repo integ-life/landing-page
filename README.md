@@ -33,3 +33,29 @@ Integ.Life Notes is deployed separately at `https://notes.integ.life`; `https://
 to be served from `https://integ.life`. Do not remove or rename it: browsers with
 the legacy root-scope registration must be able to update that exact URL, clear
 the old Cache Storage entries, and unregister the worker.
+
+## Investment
+
+`https://integ.life/investment/` is the Chinese options research workspace. It
+shows the saved SPY Wheel scenarios, daily equity, complete assignment cycles,
+cash accounting, methodology, and the limits of model-priced experiments.
+All Wheel performance is labeled `MODEL-ONLY`; this is a research snapshot,
+not live market data or an execution service.
+
+The strategy engine and exporter live in the separate `options-lab` repository.
+Update the static data, validate this publication, and then publish `main`:
+
+```bash
+cd ~/projects/options-lab
+.venv/bin/python scripts/export_investment.py \
+  --out ~/projects/integ-life-landing/docs/investment/data
+cd ~/projects/integ-life-landing
+node --test tests/investment.test.mjs
+node scripts/build-investment.mjs
+```
+
+The exporter publishes an explicit research-data subset. Vendor raw option
+files, credentials, local paths and account data are not part of the site.
+`investment/release.json` records exact public asset hashes for deployment
+verification. This uses the existing GitHub Pages publication and domain;
+no additional service, authentication client, or DNS record is required.

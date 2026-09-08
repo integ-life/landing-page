@@ -1,0 +1,11 @@
+{
+  "release": "20260908-investment-v1",
+  "evidence": "MODEL-ONLY",
+  "manifest_sha256": "fe0e2817f0be8014f810c4e36120483c6477f44cf603598dbaceb317d9afa97f",
+  "assets": {
+    "index.html": "b3a50f019cdf0d457892e962f61a0d1f6ca3022e9e69f4ca68323690f07b4d2c",
+    "investment.css": "aaf74b840cb1d8e5db23e4ce5eedf0175fa573ee61984b668a7dfa601c4ba3a8",
+    "investment.mjs": "94c26389e7f7f15215afa9e28b4f3b8e75303be0562183fbcc50d37d3fcb3569",
+    "research-core.mjs": "5f348ad54a362e340ac73ed3e46e1bff68db582c5c0bb594e5382664a99b80e8"
+  }
+}

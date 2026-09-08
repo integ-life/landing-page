@@ -91,6 +91,23 @@ const copy = {
   ko: { openApp:"앱 열기",brandResources:"브랜드 자료",eyebrow:"하나의 도메인 / 여러 도구",heroTitle:"더 의도적인 삶을 위한 작은 별자리.",heroLede:"Integ.Life는 거대한 단일 플랫폼이 아니라 목적이 분명한 도구 모음입니다. 각각 독립적으로 유용하고 필요할 때 하나의 계정으로 연결됩니다.",principleOne:"설계부터 집중.",principleTwo:"계정으로 연결.",principleThree:"기본은 독립.",directoryEyebrow:"디렉터리",directoryTitle:"입구를 선택하세요.",directoryNote:"운영 중인 아홉 제품. 의도적으로 작게 유지한 생태계.",appDescription:"노트, 할 일, 목표, 집중, 관계, 회계, AI 회고를 위한 오프라인 우선 개인 운영체제.",langDescription:"관심사를 짧은 읽기, 터치형 어휘, 빠른 확인, 체계적인 언어 코스로 바꿉니다.",chatDescription:"사람과 에이전트가 메시지, 스레드, 파일, 캔버스, 작업으로 협업하는 Slack 스타일 룸과 DM.",chessTitle:"중국 장기",chessDescription:"강좌, 엔진, 분석, 온라인 대국, 동기화된 기보로 중국 장기를 배우고 둡니다.",internationalChessTitle:"체스",internationalChessDescription:"강좌, Stockfish, 분석, 온라인 대국, 동기화된 기보로 체스를 배우고 둡니다.",snakeDescription:"영역 칠하기, 협동 도전, 공유 룸, 재연결을 지원하는 실시간 멀티플레이 Snake.",gamesDescription:"터치 친화적이고 로컬 저장을 지원하며 계정이 필요 없는 오리지널 브라우저 게임 20종.",toolsDescription:"입력을 로컬에서 처리하는 개인정보 보호 중심 브라우저 도구와 계산기.",blogTitle:"현장 노트",blogDescription:"집중 업무, AI 지원 실행, 그리고 이 도구들을 뒷받침하는 시스템에 대한 기록.",enter:"입장 ↗",play:"플레이 ↗",use:"사용 ↗",read:"읽기 ↗",identityEyebrow:"공유 계정",identityTitle:"사용자가 상품이 되지 않고 도구 사이를 이동합니다.",identityBody:"연결된 앱은 안전한 Integ.Life 계정을 사용하면서 세션과 업무 데이터는 분리합니다.",footer:"우리가 만드는 것은 울타리가 아니라 도구 모음입니다.",language:"언어" },
 };
 
+// Investment joins the directory; keep the existing locale contract complete.
+const investmentCopy = {
+  en: ["Eleven live products. One deliberately small ecosystem.", "Explore options strategies, model backtests, and the cash flows behind every Wheel cycle."],
+  "zh-CN": ["十一个在线产品，一套刻意保持小而清晰的生态。", "从 Wheel 开始，查看期权策略、模型回测，以及每轮接货与交割背后的现金流。"],
+  es: ["Once productos activos. Un ecosistema deliberadamente pequeño.", "Explora estrategias de opciones, simulaciones históricas y los flujos de efectivo de cada ciclo Wheel."],
+  fr: ["Onze produits en ligne. Un écosystème volontairement petit.", "Explorez les stratégies d’options, les simulations historiques et les flux de trésorerie de chaque cycle Wheel."],
+  de: ["Elf aktive Produkte. Ein bewusst kleines Ökosystem.", "Optionsstrategien, modellbasierte Backtests und die Zahlungsströme jedes Wheel-Zyklus nachvollziehen."],
+  id: ["Sebelas produk aktif. Ekosistem yang sengaja dibuat kecil.", "Jelajahi strategi opsi, backtest berbasis model, dan arus kas di setiap siklus Wheel."],
+  vi: ["Mười một sản phẩm đang hoạt động. Một hệ sinh thái nhỏ có chủ đích.", "Khám phá chiến lược quyền chọn, kiểm thử bằng mô hình và dòng tiền trong mỗi chu kỳ Wheel."],
+  th: ["สิบเอ็ดผลิตภัณฑ์ที่พร้อมใช้งาน ในระบบนิเวศขนาดเล็กอย่างตั้งใจ", "สำรวจกลยุทธ์ออปชัน การทดสอบย้อนหลังด้วยแบบจำลอง และกระแสเงินสดในแต่ละรอบ Wheel"],
+  ja: ["11の公開プロダクト。意図的に小さく保つエコシステム。", "オプション戦略、モデルによるバックテスト、Wheelの各サイクルのキャッシュフローを確認できます。"],
+  ko: ["운영 중인 열한 제품. 의도적으로 작게 유지한 생태계.", "옵션 전략, 모델 기반 백테스트와 각 Wheel 주기의 현금 흐름을 살펴보세요."],
+};
+for (const [locale, [directoryNote, investmentDescription]] of Object.entries(investmentCopy)) {
+  Object.assign(copy[locale], {directoryNote, investmentDescription});
+}
+
 const languageSelect = document.querySelector("[data-language-select]");
 const nodes = document.querySelectorAll("[data-copy]");
 
