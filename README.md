@@ -65,3 +65,12 @@ files, credentials, local paths and account data are not part of the site.
 `investment/release.json` records exact public asset hashes for deployment
 verification. This uses the existing GitHub Pages publication and domain;
 no additional service, authentication client, or DNS record is required.
+
+## Page analytics
+
+The **Integ Life Portal** GA4 property uses its own production web stream
+`G-S3SWEL5RC8`, separate from the app, Blog and Hopmodo. The tag loads only on
+`integ.life` in a top-level page. It counts public page paths without query
+strings, fragments, referrers or page content. Unknown paths become
+`/not-found`. Enhanced measurement, Google signals and ad personalization
+are disabled.
