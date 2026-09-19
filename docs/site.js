@@ -93,16 +93,16 @@ const copy = {
 
 // Investment joins the directory; keep the existing locale contract complete.
 const investmentCopy = {
-  en: ["Eleven live products. One deliberately small ecosystem.", "Explore options strategies, model backtests, and the cash flows behind every Wheel cycle."],
-  "zh-CN": ["十一个在线产品，一套刻意保持小而清晰的生态。", "从 Wheel 开始，查看期权策略、模型回测，以及每轮接货与交割背后的现金流。"],
-  es: ["Once productos activos. Un ecosistema deliberadamente pequeño.", "Explora estrategias de opciones, simulaciones históricas y los flujos de efectivo de cada ciclo Wheel."],
-  fr: ["Onze produits en ligne. Un écosystème volontairement petit.", "Explorez les stratégies d’options, les simulations historiques et les flux de trésorerie de chaque cycle Wheel."],
-  de: ["Elf aktive Produkte. Ein bewusst kleines Ökosystem.", "Optionsstrategien, modellbasierte Backtests und die Zahlungsströme jedes Wheel-Zyklus nachvollziehen."],
-  id: ["Sebelas produk aktif. Ekosistem yang sengaja dibuat kecil.", "Jelajahi strategi opsi, backtest berbasis model, dan arus kas di setiap siklus Wheel."],
-  vi: ["Mười một sản phẩm đang hoạt động. Một hệ sinh thái nhỏ có chủ đích.", "Khám phá chiến lược quyền chọn, kiểm thử bằng mô hình và dòng tiền trong mỗi chu kỳ Wheel."],
-  th: ["สิบเอ็ดผลิตภัณฑ์ที่พร้อมใช้งาน ในระบบนิเวศขนาดเล็กอย่างตั้งใจ", "สำรวจกลยุทธ์ออปชัน การทดสอบย้อนหลังด้วยแบบจำลอง และกระแสเงินสดในแต่ละรอบ Wheel"],
-  ja: ["11の公開プロダクト。意図的に小さく保つエコシステム。", "オプション戦略、モデルによるバックテスト、Wheelの各サイクルのキャッシュフローを確認できます。"],
-  ko: ["운영 중인 열한 제품. 의도적으로 작게 유지한 생태계.", "옵션 전략, 모델 기반 백테스트와 각 Wheel 주기의 현금 흐름을 살펴보세요."],
+  en: ["Ten live products. One deliberately small ecosystem.", "Explore options strategies, model backtests, and the cash flows behind every Wheel cycle."],
+  "zh-CN": ["十个在线产品，一套刻意保持小而清晰的生态。", "从 Wheel 开始，查看期权策略、模型回测，以及每轮接货与交割背后的现金流。"],
+  es: ["Diez productos activos. Un ecosistema deliberadamente pequeño.", "Explora estrategias de opciones, simulaciones históricas y los flujos de efectivo de cada ciclo Wheel."],
+  fr: ["Dix produits en ligne. Un écosystème volontairement petit.", "Explorez les stratégies d’options, les simulations historiques et les flux de trésorerie de chaque cycle Wheel."],
+  de: ["Zehn aktive Produkte. Ein bewusst kleines Ökosystem.", "Optionsstrategien, modellbasierte Backtests und die Zahlungsströme jedes Wheel-Zyklus nachvollziehen."],
+  id: ["Sepuluh produk aktif. Ekosistem yang sengaja dibuat kecil.", "Jelajahi strategi opsi, backtest berbasis model, dan arus kas di setiap siklus Wheel."],
+  vi: ["Mười sản phẩm đang hoạt động. Một hệ sinh thái nhỏ có chủ đích.", "Khám phá chiến lược quyền chọn, kiểm thử bằng mô hình và dòng tiền trong mỗi chu kỳ Wheel."],
+  th: ["สิบผลิตภัณฑ์ที่พร้อมใช้งาน ในระบบนิเวศขนาดเล็กอย่างตั้งใจ", "สำรวจกลยุทธ์ออปชัน การทดสอบย้อนหลังด้วยแบบจำลอง และกระแสเงินสดในแต่ละรอบ Wheel"],
+  ja: ["10の公開プロダクト。意図的に小さく保つエコシステム。", "オプション戦略、モデルによるバックテスト、Wheelの各サイクルのキャッシュフローを確認できます。"],
+  ko: ["운영 중인 열 제품. 의도적으로 작게 유지한 생태계.", "옵션 전략, 모델 기반 백테스트와 각 Wheel 주기의 현금 흐름을 살펴보세요."],
 };
 for (const [locale, [directoryNote, investmentDescription]] of Object.entries(investmentCopy)) {
   Object.assign(copy[locale], {directoryNote, investmentDescription});
