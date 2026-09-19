@@ -27,7 +27,7 @@ python3 -m http.server 8080 --directory docs
 ## Deployment
 
 GitHub Pages publishes `docs/` from the `main` branch to `https://integ.life`.
-Integ.Life Notes is deployed separately at `https://notes.integ.life`; `https://app.integ.life` redirects to the product directory while retaining its legacy `/api/*` compatibility route.
+The unified Integ.Life app is published at `https://app.integ.life`, with Notes, Todo, People, Money, Calendar and time tracking. The previous focused domains remain recovery clients for existing local data and installed PWAs.
 
 `docs/service-worker.js` is a permanent retirement worker for the PWA that used
 to be served from `https://integ.life`. Do not remove or rename it: browsers with
