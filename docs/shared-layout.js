@@ -1,4 +1,4 @@
-import './vendor/integ-ui/static.js';
+import './vendor/integ-ui-0.3.0/static.js';
 const header = document.querySelector('header.site-header, header.masthead');
 if (header) {
   const bar = document.createElement('integ-family-bar');
