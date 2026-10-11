@@ -11,3 +11,5 @@ body { background:var(--il-bg); color:var(--il-text); }
 :root[data-integ-theme="dark"] .asset-card { background:var(--il-surface); }
 .swatch-paper { color:#171a1f; }
 .dark-preview { background:#171a1f; }
+.hero-lede { color:var(--il-muted); }
+.skip-link { background:var(--il-accent); color:var(--il-on-accent); }
