@@ -1,0 +1,13 @@
+/* Shared frame surrounds the directory and existing content pages. */
+:root { --paper:var(--il-bg); --paper-deep:var(--il-subtle); --ink:var(--il-text); --muted:var(--il-muted); --line:var(--il-border); }
+body { background:var(--il-bg); color:var(--il-text); }
+.il-family-bar { width:100%; max-width:none; margin:0; }
+.il-family-bar .header-actions { gap:12px; }
+.il-family-bar .language-switch select { color:var(--il-text); background:var(--il-surface); border-color:var(--il-border); }
+.il-family-bar .il-brand span { letter-spacing:normal; }
+.il-dialog { line-height:1.5; }
+:root[data-integ-theme="dark"] .product-card,:root[data-integ-theme="dark"] .family-card,:root[data-integ-theme="dark"] .brand-card { background:var(--il-surface); color:var(--il-text); border-color:var(--il-border); }
+
+:root[data-integ-theme="dark"] .asset-card { background:var(--il-surface); }
+.swatch-paper { color:#171a1f; }
+.dark-preview { background:#171a1f; }
