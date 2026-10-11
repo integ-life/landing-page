@@ -42,3 +42,4 @@ document.querySelectorAll("[data-language]").forEach((button) => {
   button.addEventListener("click", () => requestAnimationFrame(applyBrandLanguage));
 });
 applyBrandLanguage();
+document.querySelector("[data-language-select]")?.addEventListener("change", applyBrandLanguage);
