@@ -408,7 +408,8 @@ h1 {
 }
 
 .product-card:hover::after,
-.product-card:focus-visible::after {
+.product-card:focus-visible::after,
+.card-app:focus-within::after {
   transform: scale(1);
 }
 
@@ -468,14 +469,60 @@ h1 {
   text-transform: uppercase;
 }
 
+.card-primary-link {
+  text-decoration: none;
+}
+
+.card-primary-link::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  content: "";
+}
+
+.card-primary-link:focus-visible::after {
+  outline: 0.2rem solid var(--red);
+  outline-offset: -0.2rem;
+}
+
+.card-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem 1.2rem;
+}
+
+.card-guide-link {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.card-guide-link:focus-visible {
+  outline: 0.2rem solid var(--red);
+  outline-offset: 0.15rem;
+}
+
+.card-app::after {
+  pointer-events: none;
+}
+
 .card-app:hover,
-.card-app:focus-visible {
+.card-app:focus-visible,
+.card-app:focus-within {
   background: var(--ink);
   color: white;
 }
 
 .card-app:hover p,
-.card-app:focus-visible p {
+.card-app:focus-visible p,
+.card-app:focus-within p {
   color: #c7c4bc;
 }
 

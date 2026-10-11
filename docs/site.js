@@ -108,6 +108,22 @@ for (const [locale, [directoryNote, investmentDescription]] of Object.entries(in
   Object.assign(copy[locale], {directoryNote, investmentDescription});
 }
 
+const obsidianCopy = {
+  en: "Obsidian setup ↗",
+  "zh-CN": "Obsidian 配置 ↗",
+  es: "Configurar Obsidian ↗",
+  fr: "Configurer Obsidian ↗",
+  de: "Obsidian einrichten ↗",
+  id: "Pengaturan Obsidian ↗",
+  vi: "Thiết lập Obsidian ↗",
+  th: "ตั้งค่า Obsidian ↗",
+  ja: "Obsidian の設定 ↗",
+  ko: "Obsidian 설정 ↗",
+};
+for (const [locale, obsidianGuide] of Object.entries(obsidianCopy)) {
+  Object.assign(copy[locale], {obsidianGuide});
+}
+
 const languageSelect = document.querySelector("[data-language-select]");
 const nodes = document.querySelectorAll("[data-copy]");
 
