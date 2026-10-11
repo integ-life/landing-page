@@ -1,6 +1,6 @@
-import { shellLabels, productList, products } from './labels.js';
+import { shellLabels, productGroups, products } from './labels.js';
 import { logos } from './logos.js';
-export const uiVersion = '0.2.0';
+export const uiVersion = '0.3.0';
 const key = 'integ-ui.appearance';
 const escape = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 
@@ -42,7 +42,7 @@ if (typeof customElements !== 'undefined' && !customElements.get('integ-family-b
       this.innerHTML = `<header class="il-family-bar" data-ui-version="${uiVersion}">
         <div class="il-identity"><a class="il-brand" href="${escape(home)}"><img src="${logos[product] || logos.home}" alt="" width="32" height="32"><span><strong>${escape(name)}</strong><small>by Integ.Life</small></span></a><button type="button" class="il-control il-switch" aria-haspopup="dialog" aria-expanded="false" aria-label="${labels.products}" data-il-switch>▦<span>${labels.products}</span></button></div>
         <div class="il-bar-actions"><label class="il-appearance"><span class="il-sr-only">${labels.appearance}</span><select data-il-theme aria-label="${labels.appearance}"><option value="system">${labels.system}</option><option value="light">${labels.light}</option><option value="dark">${labels.dark}</option></select></label></div>
-      </header><dialog class="il-dialog" aria-label="${labels.products}"><div class="il-dialog-head"><h2>${labels.products}</h2><button type="button" class="il-control" data-il-close aria-label="${labels.close}">×</button></div><nav class="il-product-list" aria-label="${labels.products}">${productList(locale).map(item=>`<a href="${item.href}" ${item.id===product?'aria-current="page"':''}><img src="${item.logo}" alt="" width="40" height="40"><span class="il-product-copy"><strong>${escape(item.name)}</strong><small>${escape(item.description)}</small></span></a>`).join('')}</nav><a class="il-home-link" href="https://integ.life/">${labels.home} ↗</a></dialog>`;
+      </header><dialog class="il-dialog" aria-label="${labels.products}"><div class="il-dialog-head"><h2>${labels.products}</h2><button type="button" class="il-control" data-il-close aria-label="${labels.close}">×</button></div><nav class="il-product-groups" aria-label="${labels.products}">${productGroups(locale).map(group=>`<section class="il-product-group" aria-label="${escape(group.label)}"><h3>${escape(group.label)}</h3><div class="il-product-list">${group.products.map(item=>`<a href="${item.href}" ${item.id===product?'aria-current="page"':''}><img src="${item.logo}" alt="" width="40" height="40"><span class="il-product-copy"><strong>${escape(item.name)}</strong><small>${escape(item.description)}</small></span></a>`).join('')}</div></section>`).join('')}</nav><a class="il-home-link" href="https://integ.life/">${labels.home} ↗</a></dialog>`;
       if (actions) this.querySelector('.il-bar-actions').prepend(actions);
       const dialog = this.querySelector('dialog');
       const trigger = this.querySelector('[data-il-switch]');

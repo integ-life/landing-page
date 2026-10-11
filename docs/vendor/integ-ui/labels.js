@@ -46,3 +46,28 @@ export function productList(locale='en') {
  const copy=descriptions[locale.toLowerCase().split('-')[0]] || descriptions.en;
  return products.map((item,index)=>({...item,description:copy[index]}));
 }
+
+const categoryRows = {
+ en:['Tools & life','Learning & reading','Games'],
+ zh:['工具与生活','学习与阅读','游戏'],
+ es:['Herramientas y vida','Aprender y leer','Juegos'],
+ fr:['Outils et quotidien','Apprendre et lire','Jeux'],
+ de:['Werkzeuge & Alltag','Lernen & Lesen','Spiele'],
+ id:['Alat & keseharian','Belajar & membaca','Game'],
+ vi:['Công cụ & cuộc sống','Học & đọc','Trò chơi'],
+ th:['เครื่องมือและชีวิตประจำวัน','การเรียนรู้และการอ่าน','เกม'],
+ ja:['ツールと暮らし','学習と読書','ゲーム'],
+ ko:['도구와 일상','학습과 읽기','게임'],
+ hi:['टूल और दैनिक जीवन','सीखना और पढ़ना','गेम'],
+ ar:['الأدوات والحياة','التعلم والقراءة','الألعاب'],
+};
+const categories = [
+ {id:'life',products:['app','things','chat','tools','family']},
+ {id:'learn',products:['lingulet','blog']},
+ {id:'play',products:['games','chinese-chess','chess','snake']},
+];
+export function productGroups(locale = 'en') {
+ const labels=categoryRows[locale.toLowerCase().split('-')[0]] || categoryRows.en;
+ const entries=productList(locale);
+ return categories.map((group,index)=>({id:group.id,label:labels[index],products:group.products.map(id=>entries.find(item=>item.id===id))}));
+}

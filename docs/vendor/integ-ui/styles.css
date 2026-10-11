@@ -82,3 +82,8 @@
 integ-family-bar { display:contents; }
 .il-family-bar [data-il-actions] { display:flex; align-items:center; flex-wrap:wrap; gap:12px; }
 @media(max-width:700px) { .il-family-bar .il-bar-actions { flex-wrap:wrap; } }
+
+.il-dialog .il-product-groups { display:grid; gap:20px; }
+.il-dialog .il-product-group { margin:0; padding:0; min-width:0; }
+.il-dialog .il-product-group h3 { margin:0 0 10px; font:600 12px/1.5 system-ui,-apple-system,sans-serif; color:var(--il-muted); letter-spacing:.04em; }
+.il-dialog .il-dialog-head h2 { font-family:inherit; }
