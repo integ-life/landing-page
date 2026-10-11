@@ -156,15 +156,24 @@ function setLanguage(language) {
   nodes.forEach((node) => {
     if (copy[selected][node.dataset.copy]) node.textContent = copy[selected][node.dataset.copy];
   });
-  languageSelect.value = selected;
-  languageSelect.setAttribute("aria-label", copy[selected].language);
+  if (languageSelect) {
+    languageSelect.value = selected;
+    languageSelect.setAttribute("aria-label", copy[selected].language);
+  }
+  document.querySelectorAll("[data-language]").forEach((button) => {
+    const locale = button.dataset.language === "zh" ? "zh-CN" : button.dataset.language;
+    button.setAttribute("aria-pressed", String(locale === selected));
+  });
   if (obsidianGuideLink) {
     obsidianGuideLink.href = `https://app.integ.life/#/help/obsidian?lang=${encodeURIComponent(selected)}`;
   }
   localStorage.setItem("integ-life-language", selected);
 }
 
-languageSelect.addEventListener("change", () => setLanguage(languageSelect.value));
+languageSelect?.addEventListener("change", () => setLanguage(languageSelect.value));
+document.querySelectorAll("[data-language]").forEach((button) => {
+  button.addEventListener("click", () => setLanguage(button.dataset.language === "zh" ? "zh-CN" : button.dataset.language));
+});
 
 const storedLanguage = localStorage.getItem("integ-life-language");
 const preferred =
