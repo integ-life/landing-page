@@ -126,6 +126,7 @@ for (const [locale, obsidianGuide] of Object.entries(obsidianCopy)) {
 
 const languageSelect = document.querySelector("[data-language-select]");
 const nodes = document.querySelectorAll("[data-copy]");
+const obsidianGuideLink = document.querySelector(".card-guide-link[data-copy='obsidianGuide']");
 
 async function retireLegacyServiceWorker() {
   if (!("serviceWorker" in navigator)) return;
@@ -157,6 +158,9 @@ function setLanguage(language) {
   });
   languageSelect.value = selected;
   languageSelect.setAttribute("aria-label", copy[selected].language);
+  if (obsidianGuideLink) {
+    obsidianGuideLink.href = `https://app.integ.life/#/help/obsidian?lang=${encodeURIComponent(selected)}`;
+  }
   localStorage.setItem("integ-life-language", selected);
 }
 

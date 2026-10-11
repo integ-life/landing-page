@@ -44,3 +44,37 @@ isolated empty test vault, copied its actual configuration, confirmed WebDAV
 access, and revoked the synthetic device. Organization messaging is pushed as
 `bf2e706`. This root entry is ready for its main/docs publication; final public
 version and asset checks are recorded in the coordinating product worklog.
+
+## Help destination and language handoff
+
+The follow-up request moves the public Obsidian Sync guide into Help while
+keeping account-specific configuration in Settings and maintaining useful
+links. The root card now targets `https://app.integ.life/#/help/obsidian`.
+Changing the root site's language updates only this guide link's hash query
+to `?lang=<locale>`; the static fallback uses `?lang=en`. The product owns the
+matching whitelist and the old `/#/obsidian` redirect. No account, device,
+token, credential or other query data is carried between origins.
+
+- Preserve the existing guide labels and all directory copy in ten locales.
+- Refresh the changed script URL without changing the root stylesheet,
+  primary app links, card structure or retired service worker.
+- Fetch both owned repositories before edits; local and remote `main` match.
+- `node --check docs/site.js` and `git diff --check` pass.
+- A real Chromium run passes 14 gates: complete page copy in ten locales;
+  each locale's translated label, exact Help destination, retained selection
+  after refresh and separate pointer target; a 390px viewport with a 44px
+  target and visible keyboard focus; Enter navigation to the exact Chinese
+  Help URL; and zero page errors. Navigation uses an isolated destination
+  fixture until the coordinated product publication is complete.
+- Local evidence: `/private/tmp/integ-obsidian-help-landing-local/report.json`
+  and the Chinese phone keyboard screenshot in the same directory.
+- Await the product's canonical Help route publication before committing,
+  pushing and verifying this `main/docs` release at `https://integ.life`.
+
+## Help publication checkpoint
+
+The coordinating task has verified the canonical public Help guide in the
+current app v1.26.7 (`7897c244`), with the reviewed guide bytes preserved.
+The local 14-gate root check remains green, so this entry can now publish
+through `main/docs`. Final root manifest, served-asset and real cross-site
+language results are recorded in the coordinating product worklog.
