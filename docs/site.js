@@ -108,6 +108,24 @@ for (const [locale, [directoryNote, investmentDescription]] of Object.entries(in
   Object.assign(copy[locale], {directoryNote, investmentDescription});
 }
 
+// Portal localization and product localization have independent scopes.
+const localeScopeCopy = {
+  en: ["This directory has 10 interface languages; each product has its own language options.", "Integ Tools supports seven interface languages, with browser utilities and calculators that process inputs locally."],
+  "zh-CN": ["本产品目录支持 10 种界面语言；各产品的语言选项独立。", "Integ Tools 支持 7 种界面语言，浏览器工具与计算器在本机处理输入。"],
+  es: ["Este directorio tiene 10 idiomas de interfaz; cada producto tiene sus propias opciones de idioma.", "Integ Tools ofrece siete idiomas de interfaz y utilidades y calculadoras que procesan los datos localmente."],
+  fr: ["Ce répertoire propose 10 langues d’interface ; chaque produit a ses propres langues.", "Integ Tools propose sept langues d’interface, avec des utilitaires et calculatrices qui traitent les données localement."],
+  de: ["Dieses Verzeichnis bietet 10 Oberflächensprachen; jedes Produkt hat eigene Sprachoptionen.", "Integ Tools bietet sieben Oberflächensprachen mit Browser-Werkzeugen und Rechnern, die Eingaben lokal verarbeiten."],
+  id: ["Direktori ini memiliki 10 bahasa antarmuka; setiap produk memiliki pilihan bahasanya sendiri.", "Integ Tools mendukung tujuh bahasa antarmuka, dengan utilitas browser dan kalkulator yang memproses input secara lokal."],
+  vi: ["Danh mục này có 10 ngôn ngữ giao diện; mỗi sản phẩm có các lựa chọn ngôn ngữ riêng.", "Integ Tools hỗ trợ bảy ngôn ngữ giao diện với công cụ trình duyệt và máy tính xử lý dữ liệu trên thiết bị."],
+  th: ["ไดเรกทอรีนี้มีภาษาอินเทอร์เฟซ 10 ภาษา แต่ละผลิตภัณฑ์มีตัวเลือกภาษาของตนเอง", "Integ Tools รองรับภาษาอินเทอร์เฟซเจ็ดภาษา พร้อมเครื่องมือเบราว์เซอร์และเครื่องคิดเลขที่ประมวลผลข้อมูลบนอุปกรณ์"],
+  ja: ["この一覧は10の表示言語に対応し、各製品の言語設定はそれぞれ異なります。", "Integ Tools は7つの表示言語に対応し、ブラウザツールと計算機は入力を端末内で処理します。"],
+  ko: ["이 제품 목록은 10개 인터페이스 언어를 제공하며, 각 제품의 언어 옵션은 별도입니다.", "Integ Tools는 7개 인터페이스 언어를 지원하며 브라우저 도구와 계산기는 입력을 기기에서 처리합니다."],
+};
+for (const [locale, [scope, toolsDescription]] of Object.entries(localeScopeCopy)) {
+  copy[locale].directoryNote += ` ${scope}`;
+  copy[locale].toolsDescription = toolsDescription;
+}
+
 const obsidianCopy = {
   en: "Obsidian setup ↗",
   "zh-CN": "Obsidian 配置 ↗",
