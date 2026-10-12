@@ -61,6 +61,10 @@ node --test tests/investment*.test.mjs
 node scripts/build-investment.mjs
 ```
 
+Edit Investment page structure in `investment/src/index.html` and disclaimer wording in
+`investment/src/content.ts`, then run `node scripts/build-investment.mjs`. The build
+regenerates the published HTML and asset hashes before validating the research data.
+
 The exporter publishes an explicit research-data subset. Vendor raw option
 files, credentials, local paths and account data are not part of the site.
 `investment/release.json` records exact public asset hashes for deployment

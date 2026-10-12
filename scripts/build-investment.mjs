@@ -10,7 +10,15 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const site = path.join(root, 'docs/investment');
 const read = file => fs.readFileSync(path.join(site, file));
 const hash = data => createHash('sha256').update(data).digest('hex');
-const html = read('index.html').toString();
+// The editable page template and wording live under investment/src; docs is published output.
+const contentSource = fs.readFileSync(path.join(root, 'investment/src/content.ts'), 'utf8');
+const {investmentContent} = await import(`data:text/javascript;base64,${Buffer.from(contentSource).toString('base64')}`);
+const escapeHtml = value => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('"', '&quot;');
+const template = fs.readFileSync(path.join(root, 'investment/src/index.html'), 'utf8');
+assert.equal(template.split('<!-- investment-disclaimer -->').length, 2, 'Expected one disclaimer slot');
+const disclaimer = `<p class="financial-disclaimer"><span lang="zh-CN">${escapeHtml(investmentContent.disclaimerZh)}</span><br><span lang="en">${escapeHtml(investmentContent.disclaimerEn)}</span></p>`;
+const html = template.replace('<!-- investment-disclaimer -->', disclaimer);
+fs.writeFileSync(path.join(site, 'index.html'), html);
 const manifest = JSON.parse(read('data/manifest.json'));
 assert.equal(manifest.scenarios.length, 4);
 const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);

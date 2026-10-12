@@ -4,7 +4,7 @@
   "manifest_sha256": "fe0e2817f0be8014f810c4e36120483c6477f44cf603598dbaceb317d9afa97f",
   "demo_manifest_sha256": "de297ca1283900616512d3b8649b9328975c697ebbb1131f66a1d4ed0a67ea80",
   "assets": {
-    "index.html": "319b4a87ffb3b3a9f6762e25838a1ac5bc2706be484b547607fe3242f7f74784",
+    "index.html": "2d4091ec892f36bf7ae84dbe4ca0036b6276aab22712e008df4be839914e2bd9",
     "investment.css": "aaf74b840cb1d8e5db23e4ce5eedf0175fa573ee61984b668a7dfa601c4ba3a8",
     "investment.mjs": "94c26389e7f7f15215afa9e28b4f3b8e75303be0562183fbcc50d37d3fcb3569",
     "research-core.mjs": "5f348ad54a362e340ac73ed3e46e1bff68db582c5c0bb594e5382664a99b80e8",
