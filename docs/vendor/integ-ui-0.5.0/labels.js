@@ -18,7 +18,7 @@ export function shellLabels(locale = 'en') { const row=rows[locale.toLowerCase()
 export const products = [
  {id:'app',name:'Integ.Life',href:'https://app.integ.life/'},
  {id:'things',name:'Things',href:'https://things.integ.life/'},
- {id:'chat',name:'Integ.Chat',href:'https://chat.integ.life/'},
+ {id:'chat',name:'Integ-Chat',href:'https://chat.integ.life/'},
  {id:'lingulet',name:'Lingulet',href:'https://lang.integ.life/'},
  {id:'tools',name:'Integ Tools',href:'https://tools.integ.life/'},
  {id:'games',name:'Integ Games',href:'https://games.integ.life/'},
