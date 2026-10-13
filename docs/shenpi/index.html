@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>路人审批所 · 你的小事，全网盖章</title>
+<meta name="description" content="提交一件拿不定主意的小事，路过的陌生人会给你盖章通过/驳回，还附赠神评论。生成你的专属审批单，截图发朋友圈！">
+<meta property="og:title" content="路人审批所 · 你的小事，全网盖章">
+<meta property="og:description" content="我提交了一件小事给全网审批，快来给我盖个章！">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🈴</text></svg>">
+<style>
+:root{--red:#c8402a;--red2:#a02c1a;--paper:#fdf6e9;--ink:#2b2320;--sub:#8a7a6d;--line:#e3d5bd;--gold:#e8a13a}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f3e9d2;color:var(--ink);
+background-image:radial-gradient(#e7d9ba 1px,transparent 1px);background-size:22px 22px}
+.wrap{max-width:680px;margin:0 auto;padding:18px 14px 60px}
+header{text-align:center;padding:26px 0 6px}
+.badge{display:inline-block;background:var(--ink);color:#ffe9b0;padding:3px 12px;border-radius:99px;font-size:12px;letter-spacing:2px}
+h1{font-size:44px;margin:10px 0 2px;letter-spacing:4px;color:var(--red2);font-weight:900}
+h1 .seal{display:inline-grid;place-items:center;width:46px;height:46px;background:var(--red);color:#fff;border-radius:8px;font-size:24px;vertical-align:6px;margin-left:6px;transform:rotate(4deg);box-shadow:0 3px 0 var(--red2)}
+.tagline{color:var(--sub);font-size:15px;margin:4px 0 0}
+.stats{display:flex;gap:10px;justify-content:center;margin:16px 0 4px;flex-wrap:wrap}
+.stat{background:#fffdf7;border:1.5px solid var(--line);border-radius:12px;padding:8px 16px;font-size:13px;color:var(--sub)}
+.stat b{color:var(--red2);font-size:18px}
+.card{background:var(--paper);border:1.5px solid var(--line);border-radius:16px;padding:18px;margin-top:16px;box-shadow:0 6px 24px rgba(120,80,20,.08)}
+.card h2{margin:0 0 12px;font-size:18px}
+label{font-size:13px;color:var(--sub);display:block;margin:12px 0 6px}
+textarea,input[type=text]{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;font-size:16px;background:#fffdf7;font-family:inherit;resize:vertical}
+textarea:focus,input:focus{outline:2px solid var(--gold);border-color:transparent}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1.5px solid var(--line);background:#fffdf7;border-radius:99px;padding:6px 14px;font-size:14px;cursor:pointer}
+.chip.on{background:var(--red);border-color:var(--red);color:#fff}
+.btn{display:block;width:100%;border:0;border-radius:12px;padding:14px;font-size:17px;font-weight:700;cursor:pointer;margin-top:16px}
+.btn.red{background:var(--red);color:#fff;box-shadow:0 4px 0 var(--red2)}
+.btn.red:active{transform:translateY(3px);box-shadow:0 1px 0 var(--red2)}
+.btn.ghost{background:#fffdf7;border:1.5px solid var(--line);color:var(--ink)}
+.btn.small{width:auto;display:inline-block;padding:9px 18px;font-size:14px;margin-top:0}
+.doc{background:#fffdf7;border:2px solid #d8c49a;border-radius:6px;padding:20px 18px;position:relative;overflow:hidden}
+.doc:before{content:"";position:absolute;inset:6px;border:1px solid #eadfc6;border-radius:4px;pointer-events:none}
+.doc .org{text-align:center;color:var(--red);font-weight:900;letter-spacing:6px;font-size:15px;border-bottom:3px double var(--red);padding-bottom:8px}
+.doc .title{text-align:center;font-size:21px;font-weight:800;letter-spacing:8px;margin:12px 0 4px}
+.doc .no{text-align:center;color:var(--sub);font-size:12px}
+.doc table{width:100%;border-collapse:collapse;margin-top:12px;font-size:15px}
+.doc td{border:1px solid var(--line);padding:9px 10px}
+.doc td.k{width:78px;background:#fbf3df;color:var(--sub);font-size:13px;text-align:center}
+.stamps{margin-top:12px}
+.stamp-row{display:flex;gap:8px;padding:9px 2px;border-bottom:1px dashed var(--line);align-items:baseline;animation:fadein .4s}
+.stamp-row .who{color:var(--sub);font-size:13px;white-space:nowrap}
+.stamp-row .cmt{flex:1}
+.mark{font-weight:800;border-radius:6px;padding:1px 8px;font-size:13px;white-space:nowrap}
+.mark.pass{color:#1d7a3a;border:1.5px solid #1d7a3a}
+.mark.reject{color:var(--red);border:1.5px solid var(--red)}
+.seal-big{position:absolute;right:14px;bottom:52px;width:104px;height:104px;border:4px solid var(--red);border-radius:50%;color:var(--red);display:grid;place-items:center;font-size:21px;font-weight:900;letter-spacing:2px;transform:rotate(-14deg);opacity:.88;background:rgba(200,64,42,.05);text-align:center;line-height:1.25;animation:sealin .35s cubic-bezier(.2,2.2,.4,1)}
+.seal-big.no{border-color:#666;color:#666}
+@keyframes sealin{from{transform:rotate(-14deg) scale(2.4);opacity:0}to{transform:rotate(-14deg) scale(1);opacity:.88}}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.progress{height:10px;background:#f0e3c8;border-radius:99px;overflow:hidden;margin-top:6px}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,#2f9e57,#57c178);transition:width .5s}
+.doc .foot{margin-top:14px;color:var(--sub);font-size:12px;text-align:center}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.queue-item{background:#fffdf7;border:1.5px solid var(--line);border-radius:14px;padding:14px;margin-top:12px}
+.queue-item .matter{font-size:16px;font-weight:600;line-height:1.5}
+.queue-item .meta{color:var(--sub);font-size:12.5px;margin-top:4px}
+.stampbox{margin-top:10px;border-top:1px dashed var(--line);padding-top:10px}
+.stampbox .row{display:flex;gap:8px}
+.stampbox input{flex:1}
+.passbtn,.rejbtn{border:0;border-radius:10px;padding:10px 16px;font-size:15px;font-weight:700;cursor:pointer;white-space:nowrap}
+.passbtn{background:#1d7a3a;color:#fff}.rejbtn{background:#fff;border:1.5px solid var(--red);color:var(--red)}
+.quick{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.quick span{font-size:12.5px;background:#fbf3df;border:1px solid var(--line);padding:4px 10px;border-radius:99px;cursor:pointer}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(80px);background:var(--ink);color:#fff;padding:11px 20px;border-radius:99px;font-size:14.5px;transition:.3s;z-index:9;max-width:92vw;text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.hidden{display:none}
+.mini{font-size:12.5px;color:var(--sub);text-align:center;margin-top:20px;line-height:1.7}
+a{color:var(--red2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="badge">全 网 人 民 审 批 机 关</span>
+    <h1>路人审批所<span class="seal">印</span></h1>
+    <p class="tagline">拿不定主意的小事，别自己纠结——<br>交给路过的陌生人盖章，还有神评论赠送。</p>
+    <div class="stats">
+      <div class="stat">累计审批单 <b id="stCases">–</b></div>
+      <div class="stat">路人盖章 <b id="stStamps">–</b></div>
+      <div class="stat">本所通过率 <b id="stRate">–</b></div>
+      <div class="stat">已帮全网省下 <b id="stSaved">–</b></div>
+    </div>
+  </header>
+
+  <section class="card" id="submitCard">
+    <h2>📝 提交一件小事</h2>
+    <label>我想申请……（写清楚，路人批得快）</label>
+    <textarea id="fMatter" rows="2" maxlength="60" placeholder="例：想花 ¥99 买一盆龟背竹，阳台已经有七盆了"></textarea>
+    <label>分类</label>
+    <div class="chips" id="fCats"></div>
+    <label>涉及金额（选填，单位 ¥；被驳回就算帮你省下）</label>
+    <input type="text" id="fAmount" inputmode="numeric" maxlength="7" placeholder="例：288，不花钱的事留空">
+    <label>申请人（留个花名）</label>
+    <input type="text" id="fName" maxlength="16" placeholder="例：阳台植物杀手">
+    <button class="btn red" id="btnSubmit">上呈审批 · 等路人盖章</button>
+    <p class="mini" style="margin-top:10px">提交后值班路人会先批第一轮，真路人随时加盖。<br>审批单链接可以发给朋友，让他们亲自来盖（或拆台）。</p>
+  </section>
+
+  <section id="myDoc" class="hidden" style="margin-top:16px"></section>
+
+  <section class="card">
+    <h2>🚶 路人办事大厅 <span style="color:var(--sub);font-size:13px;font-weight:400">—— 轮到你当路人了，看到顺眼的就盖</span></h2>
+    <div id="queue"></div>
+  </section>
+
+  <p class="mini">路人审批所 · 本所批复不具有任何法律效力，只具有快乐效力<br>由一位路过的人创办 · 运行在一台树莓派上</p>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const CATS=['吃喝','花钱','偷懒','恋爱','工作','其他'];
+let curCat='吃喝';
+CATS.forEach(c=>{const el=document.createElement('button');el.className='chip'+(c===curCat?' on':'');el.textContent=c;el.onclick=()=>{curCat=c;document.querySelectorAll('#fCats .chip').forEach(x=>x.classList.toggle('on',x.textContent===c))};$('#fCats').appendChild(el)});
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2400)}
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+/* ---------- data layer: API first, demo fallback ---------- */
+let DEMO=false, cases=[], myStamps=JSON.parse(localStorage.getItem('sp_mine')||'{}');
+const SEED=[
+ {id:'SP1001',matter:'想花 ¥288 买一个会发光的机械键盘，理由是码字需要仪式感',cat:'花钱',applicant:'深夜码字人',amount:288,ts:Date.now()-36e5,stamps:[{d:'pass',c:'批了，仪式感不能省',ts:1},{d:'pass',c:'狠狠敲吧！',ts:2},{d:'reject',c:'驳回，上次买的还在吃灰',ts:3}]},
+ {id:'SP1002',matter:'想订 ¥699 的海马体写真套餐，朋友圈九宫格就差它了',cat:'花钱',applicant:'自拍预备役',amount:699,ts:Date.now()-72e5,stamps:[{d:'reject',c:'驳回，手机原相机不香吗',ts:1},{d:'reject',c:'¥699 够吃 23 杯奶茶，想清楚',ts:2},{d:'pass',c:'去吧，青春不等人',ts:3}]},
+ {id:'SP1003',matter:'下午三点了，想点一杯 ¥18 全糖奶茶，早上那杯不算',cat:'吃喝',applicant:'奶茶在逃股东',amount:18,ts:Date.now()-9e6,stamps:[{d:'pass',c:'喝吧，大馋钱主',ts:1},{d:'pass',c:'去吧，再纠结就下班了',ts:2}]},
+ {id:'SP1004',matter:'冰箱里最后一块蛋糕，我妈说她不吃的，我能吃吗',cat:'吃喝',applicant:'蛋糕守护者',amount:0,ts:Date.now()-12e6,stamps:[{d:'pass',c:'她说不吃就是等你吃，快',ts:1},{d:'pass',c:'狠狠撕咬吧！',ts:2},{d:'pass',c:'吃吧，大馋钱主',ts:3}]},
+];
+async function api(path,opt){const r=await fetch(path,opt);if(!r.ok)throw new Error(r.status);return r.json()}
+async function loadCases(){
+  try{cases=await api('/api/cases');DEMO=false}
+  catch{cases=JSON.parse(localStorage.getItem('sp_cases')||'null')||structuredClone(SEED);DEMO=true}
+  renderStats();renderQueue();
+  const q=new URLSearchParams(location.search).get('case');
+  if(q){const c=cases.find(x=>x.id===q);if(c)showDoc(c,true)}
+}
+function saveLocal(){if(DEMO)localStorage.setItem('sp_cases',JSON.stringify(cases))}
+function verdict(c){const p=c.stamps.filter(s=>s.d==='pass').length,r=c.stamps.length-p;
+  return{pass:p,reject:r,total:c.stamps.length,result:c.stamps.length>=3?(p>r?'approved':p<r?'rejected':'pending'):'pending'}}
+function renderStats(){
+  const st=cases.reduce((a,c)=>a+c.stamps.length,0);
+  const ps=cases.reduce((a,c)=>a+c.stamps.filter(s=>s.d==='pass').length,0);
+  $('#stCases').textContent=cases.length;$('#stStamps').textContent=st;
+  $('#stRate').textContent=st?Math.round(ps/st*100)+'%':'–';
+  const saved=cases.reduce((a,c)=>a+(verdict(c).result==='rejected'?(c.amount||0):0),0);
+  $('#stSaved').textContent='¥'+saved.toLocaleString();
+}
+
+/* ---------- document view ---------- */
+function docHTML(c){
+  const v=verdict(c);
+  const rows=c.stamps.map(s=>`<div class="stamp-row"><span class="mark ${s.d}">${s.d==='pass'?'通过':'驳回'}</span><span class="cmt">${esc(s.c)}</span><span class="who">· 一位路过的人</span></div>`).join('')||'<div class="stamp-row"><span class="who">暂无路人盖章，快把链接发给朋友！</span></div>';
+  const seal=v.result==='approved'?'<div class="seal-big">准予<br>通过</div>':v.result==='rejected'?'<div class="seal-big no">予以<br>驳回</div>':'';
+  const pct=v.total?Math.round(v.pass/v.total*100):0;
+  return `<div class="doc" id="docEl">
+    <div class="org">路 人 审 批 所</div>
+    <div class="title">审 批 单</div>
+    <div class="no">编号 ${c.id} · ${new Date(c.ts).toLocaleString('zh-CN',{hour12:false})}</div>
+    <table><tr><td class="k">申请人</td><td>${esc(c.applicant)}</td><td class="k">分类</td><td>${esc(c.cat)}</td></tr>
+    <tr><td class="k">申请事项</td><td colspan="3">${esc(c.matter)}</td></tr>
+    ${c.amount?`<tr><td class="k">涉及金额</td><td colspan="3">¥${Number(c.amount).toLocaleString()}${v.result==='rejected'?' · <b style="color:#1d7a3a">本单已为你省下这笔钱</b>':v.result==='approved'?' · <b style="color:var(--red)">本所批准你剁手</b>':''}</td></tr>`:''}</table>
+    <div style="margin-top:12px;font-size:13px;color:var(--sub)">路人表决：通过 ${v.pass} · 驳回 ${v.reject}（共 ${v.total} 人盖章）</div>
+    <div class="progress"><i style="width:${pct}%"></i></div>
+    <div class="stamps">${rows}</div>
+    ${seal}
+    <div class="foot">本批复由路过的陌生人作出 · 不具法律效力，只具快乐效力</div>
+  </div>
+  <div class="actions">
+    <button class="btn red small" onclick="makePoster('${c.id}')">📸 生成审批单图片</button>
+    <button class="btn ghost small" onclick="shareCase('${c.id}')">🔗 复制链接喊朋友来盖章</button>
+    <button class="btn ghost small" onclick="document.querySelector('#myDoc').classList.add('hidden');history.replaceState(null,'',location.pathname)">关闭</button>
+  </div>`;
+}
+function showDoc(c,scroll){
+  const el=$('#myDoc');el.innerHTML=docHTML(c);el.classList.remove('hidden');
+  if(scroll)el.scrollIntoView({behavior:'smooth',block:'center'});
+}
+window.shareCase=function(id){
+  const url=location.origin+location.pathname+'?case='+id;
+  const done=()=>toast('链接已复制！发给朋友，让他们来给你盖章（或拆台）');
+  if(navigator.share){navigator.share({title:'路人审批所',text:'我提交了一件小事给全网审批，快来盖章！',url}).catch(()=>{})}
+  else if(navigator.clipboard){navigator.clipboard.writeText(url).then(done)}
+  else{prompt('复制这个链接',url)}
+};
+window.makePoster=function(id){
+  const c=cases.find(x=>x.id===id);if(!c)return;
+  const v=verdict(c),cv=document.createElement('canvas');cv.width=750;cv.height=1000;
+  const g=cv.getContext('2d');
+  g.fillStyle='#fffdf7';g.fillRect(0,0,750,1000);
+  g.strokeStyle='#d8c49a';g.lineWidth=6;g.strokeRect(14,14,722,972);
+  g.strokeStyle='#eadfc6';g.lineWidth=2;g.strokeRect(30,30,690,940);
+  g.fillStyle='#c8402a';g.textAlign='center';
+  g.font='900 34px sans-serif';g.fillText('路 人 审 批 所',375,96);
+  g.fillRect(70,118,610,3);g.fillRect(70,128,610,1.5);
+  g.fillStyle='#2b2320';g.font='800 44px sans-serif';g.fillText('审 批 单',375,196);
+  g.font='22px sans-serif';g.fillStyle='#8a7a6d';
+  g.fillText('编号 '+c.id+' · 申请人：'+c.applicant+' · 分类：'+c.cat,375,238);
+  g.textAlign='left';g.fillStyle='#2b2320';g.font='30px sans-serif';
+  const words=c.matter.split('');let line='',y=310;
+  for(const ch of words){if(g.measureText(line+ch).width>600){g.fillText(line,75,y);line=ch;y+=44}else line+=ch}
+  g.fillText(line,75,y);y+=70;
+  g.font='24px sans-serif';g.fillStyle='#8a7a6d';
+  g.fillText('路人表决：通过 '+v.pass+' · 驳回 '+v.reject+'（共 '+v.total+' 人盖章）',75,y);y+=54;
+  c.stamps.slice(0,7).forEach(s=>{
+    g.fillStyle=s.d==='pass'?'#1d7a3a':'#c8402a';g.font='800 24px sans-serif';
+    g.fillText(s.d==='pass'?'[ 通过 ]':'[ 驳回 ]',75,y);
+    g.fillStyle='#2b2320';g.font='24px sans-serif';
+    g.fillText(s.c.slice(0,20),205,y);y+=42;
+  });
+  if(c.amount&&v.result!=='pending'){
+    g.fillStyle=v.result==='rejected'?'#1d7a3a':'#c8402a';g.font='800 27px sans-serif';g.textAlign='left';
+    g.fillText(v.result==='rejected'?('✔ 本单为你省下 ¥'+Number(c.amount).toLocaleString()):('✔ 本所批准剁手 ¥'+Number(c.amount).toLocaleString()),75,Math.min(y+8,830));
+  }
+  if(v.result!=='pending'){
+    g.save();g.translate(560,800);g.rotate(-0.24);
+    g.strokeStyle=v.result==='approved'?'#c8402a':'#666';g.lineWidth=7;
+    g.beginPath();g.arc(0,0,92,0,7);g.stroke();
+    g.fillStyle=g.strokeStyle;g.font='900 40px sans-serif';g.textAlign='center';
+    g.fillText(v.result==='approved'?'准予通过':'予以驳回',0,14);g.restore();
+  }
+  g.fillStyle='#8a7a6d';g.font='21px sans-serif';g.textAlign='center';
+  g.fillText('路人审批所 · 你的小事，全网盖章',375,930);
+  const a=document.createElement('a');a.download='审批单-'+c.id+'.png';a.href=cv.toDataURL('image/png');a.click();
+  toast('审批单图片已生成，去发朋友圈吧');
+};
+
+/* ---------- queue (be a passerby) ---------- */
+const QUICK_PASS=['批了！','去吧，别纠结','狠狠干吧！','望再接再厉','吃吧，大馋钱主','准了，本所特批'];
+const QUICK_REJ=['驳回，理由：我看不懂但我大受震撼','想都别想','驳回，下次请早','省省吧','本路人不予批准'];
+function renderQueue(){
+  const q=$('#queue');q.innerHTML='';
+  cases.slice(0,20).forEach(c=>{
+    const v=verdict(c),stamped=myStamps[c.id];
+    const div=document.createElement('div');div.className='queue-item';
+    div.innerHTML=`<div class="matter">${esc(c.matter)}</div>
+      <div class="meta">申请人 ${esc(c.applicant)} · ${esc(c.cat)} · 已有 ${v.total} 人盖章（通过 ${v.pass} / 驳回 ${v.reject}）</div>
+      ${stamped?`<div class="meta" style="color:#1d7a3a">✓ 你已盖章：${stamped==='pass'?'通过':'驳回'} · <a href="#" data-view="${c.id}">看审批单</a></div>`:`
+      <div class="stampbox">
+        <div class="row"><input type="text" maxlength="40" placeholder="留一句神评论（可空）" id="in-${c.id}">
+        <button class="passbtn" data-pass="${c.id}">🈴 通过</button>
+        <button class="rejbtn" data-rej="${c.id}">驳回</button></div>
+        <div class="quick">${QUICK_PASS.map(t=>`<span data-qp="${c.id}" data-t="${t}">${t}</span>`).join('')}${QUICK_REJ.map(t=>`<span data-qr="${c.id}" data-t="${t}">${t}</span>`).join('')}</div>
+      </div>`}
+      ${stamped?'':`<div class="meta" style="margin-top:8px"><a href="#" data-view="${c.id}">围观这张审批单 →</a></div>`}`;
+    q.appendChild(div);
+  });
+  q.querySelectorAll('[data-pass]').forEach(b=>b.onclick=()=>doStamp(b.dataset.pass,'pass'));
+  q.querySelectorAll('[data-rej]').forEach(b=>b.onclick=()=>doStamp(b.dataset.rej,'reject'));
+  q.querySelectorAll('[data-qp]').forEach(b=>b.onclick=()=>doStamp(b.dataset.qp,'pass',b.dataset.t));
+  q.querySelectorAll('[data-qr]').forEach(b=>b.onclick=()=>doStamp(b.dataset.qr,'reject',b.dataset.t));
+  q.querySelectorAll('[data-view]').forEach(b=>b.onclick=e=>{e.preventDefault();showDoc(cases.find(x=>x.id===b.dataset.view),true)});
+}
+async function doStamp(id,d,quick){
+  const inp=document.querySelector('#in-'+id);
+  const comment=quick||(inp?inp.value.trim():'')||'阅。';
+  myStamps[id]=d;localStorage.setItem('sp_mine',JSON.stringify(myStamps));
+  if(!DEMO){try{const nc=await api('/api/cases/'+id+'/stamp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({d,c:comment})});
+    const i=cases.findIndex(x=>x.id===id);cases[i]=nc;}catch{}}
+  else{const c=cases.find(x=>x.id===id);c.stamps.push({d,c:comment,ts:Date.now()});saveLocal()}
+  renderStats();renderQueue();toast(d==='pass'?'🈴 已盖章：通过！':'已驳回，毫不留情');
+  const c=cases.find(x=>x.id===id);if(c&&verdict(c).total>=3)showDoc(c,true);
+}
+
+/* ---------- submit + duty passerby ---------- */
+const DUTY=[
+ {d:'pass',c:'值班路人先批为敬：准了'},
+ {d:'pass',c:'本所今日开门红，通过'},
+ {d:'pass',c:'去吧，再纠结天都黑了'},
+ {d:'pass',c:'狠狠干吧！'},
+ {d:'reject',c:'驳回预警：这事听着就费钱'},
+ {d:'pass',c:'吃吧/买吧/干吧，人生苦短'},
+ {d:'pass',c:'望再接再厉，不负众望'},
+];
+$('#btnSubmit').onclick=async()=>{
+  const matter=$('#fMatter').value.trim();
+  if(matter.length<4)return toast('事项至少写 4 个字，路人才好批');
+  const body={matter,cat:curCat,applicant:$('#fName').value.trim()||'匿名申请人',amount:parseInt(($('#fAmount').value||'').replace(/[^\d]/g,''))||0};
+  let c;
+  if(!DEMO){try{c=await api('/api/cases',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})}catch{c=null}}
+  if(!c){DEMO=true;c={id:'SP'+Math.floor(1000+Math.random()*9000),...body,ts:Date.now(),stamps:[]};cases.unshift(c);saveLocal()}
+  else cases.unshift(c);
+  renderStats();renderQueue();showDoc(c,true);
+  toast('已上呈！值班路人正在赶来盖章的路上…');
+  // duty passersby arrive one by one — first-minute magic
+  const n=2+Math.floor(Math.random()*2);
+  for(let i=0;i<n;i++){
+    setTimeout(async()=>{
+      const s=DUTY[Math.floor(Math.random()*DUTY.length)];
+      if(!DEMO){try{const nc=await api('/api/cases/'+c.id+'/stamp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(s)});const ix=cases.findIndex(x=>x.id===c.id);cases[ix]=nc;c=nc}catch{return}}
+      else{c.stamps.push({...s,ts:Date.now()});saveLocal()}
+      renderStats();renderQueue();showDoc(c,false);
+      if(i===n-1)toast('第一轮批复完成！把链接发给朋友，让真路人继续盖');
+    },1400*(i+1)+Math.random()*900);
+  }
+};
+loadCases();
+</script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>一句话接龙宇宙 · 你写一句，传遍全网</title>
+<meta name="description" content="每人只写一句，故事自己长大。你是第 N 棒——接住它，续一句，再把链接传给下一个人，看这个故事最后会长成什么样。">
+<meta property="og:title" content="一句话接龙宇宙">
+<meta property="og:description" content="有人把一个故事传到了我手里，快来续一句，再传下去！">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
+<style>
+:root{--bg:#17122b;--bg2:#241a45;--card:#fffaf0;--ink:#241d33;--sub:#7d7299;--acc:#ffcf4d;--acc2:#ff6b9d;--line:#e8ddc8}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:#efeafd;
+background:radial-gradient(1000px 500px at 80% -10%,#3b2a6e 0,transparent 60%),radial-gradient(800px 400px at 10% 110%,#40255a 0,transparent 55%),var(--bg);min-height:100vh}
+.wrap{max-width:680px;margin:0 auto;padding:20px 14px 60px}
+header{text-align:center;padding:28px 0 4px}
+.badge{display:inline-block;border:1px solid #57489b;color:#cdbfff;padding:3px 12px;border-radius:99px;font-size:12px;letter-spacing:2px}
+h1{font-size:40px;margin:12px 0 4px;font-weight:900;letter-spacing:2px}
+h1 .hl{color:var(--acc)}
+.tagline{color:#b7aede;font-size:15px;line-height:1.7;margin:6px 0 0}
+.stats{display:flex;gap:10px;justify-content:center;margin:16px 0 0;flex-wrap:wrap}
+.stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:8px 16px;font-size:13px;color:#b7aede}
+.stat b{color:var(--acc);font-size:18px}
+.card{background:var(--card);color:var(--ink);border-radius:16px;padding:18px;margin-top:16px;box-shadow:0 12px 32px rgba(0,0,0,.35)}
+.card h2{margin:0 0 8px;font-size:18px}
+label{font-size:13px;color:#8b8172;display:block;margin:12px 0 6px}
+textarea,input[type=text]{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;font-size:16px;background:#fff;font-family:inherit;resize:vertical}
+textarea:focus,input:focus{outline:2px solid var(--acc);border-color:transparent}
+.btn{display:block;width:100%;border:0;border-radius:12px;padding:14px;font-size:17px;font-weight:800;cursor:pointer;margin-top:16px}
+.btn.acc{background:var(--acc);color:#3a2a00;box-shadow:0 4px 0 #d9a521}
+.btn.acc:active{transform:translateY(3px);box-shadow:0 1px 0 #d9a521}
+.btn.pink{background:var(--acc2);color:#fff;box-shadow:0 4px 0 #c94f7c}
+.btn.ghost{background:#fff;border:1.5px solid var(--line);color:var(--ink)}
+.btn.small{width:auto;display:inline-block;padding:9px 16px;font-size:14px;margin-top:0}
+.manuscript{background:#fffef9;border:1.5px solid var(--line);border-radius:12px;padding:18px;position:relative}
+.manuscript .ctitle{font-size:22px;font-weight:900;text-align:center}
+.manuscript .cmeta{text-align:center;color:#8b8172;font-size:12.5px;margin:6px 0 14px}
+.seg{padding:10px 4px;border-bottom:1px dashed var(--line);animation:fadein .4s}
+.seg .txt{font-size:17px;line-height:1.65}
+.seg .by{font-size:12.5px;color:#a2947a;margin-top:3px}
+.seg .by b{color:#c98a1b}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.chain-item{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px;margin-top:12px;cursor:pointer}
+.chain-item:hover{border-color:var(--acc)}
+.chain-item .t{font-size:17px;font-weight:700;color:#fff}
+.chain-item .m{color:#b7aede;font-size:13px;margin-top:4px;line-height:1.6}
+.chain-item .first{color:#e8e2ff;font-size:14.5px;margin-top:6px}
+.pill{display:inline-block;background:var(--acc);color:#3a2a00;font-size:12px;font-weight:800;border-radius:99px;padding:2px 10px;margin-left:8px;vertical-align:2px}
+.pill.end{background:#8b8172;color:#fff}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(80px);background:#fff;color:#241d33;padding:11px 20px;border-radius:99px;font-size:14.5px;font-weight:600;transition:.3s;z-index:9;max-width:92vw;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.4)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.hidden{display:none}
+.mini{font-size:12.5px;color:#8f83b8;text-align:center;margin-top:20px;line-height:1.7}
+.dice{float:right;font-size:13px;color:#c98a1b;cursor:pointer;font-weight:600}
+.progress-note{background:#fff4d6;border:1px dashed #d9a521;border-radius:10px;padding:10px 12px;font-size:14px;color:#6b5410;margin-top:12px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="badge">全 网 接 力 写 作 实 验</span>
+    <h1>一句话<span class="hl">接龙</span>宇宙</h1>
+    <p class="tagline">每人只写一句，故事自己长大。<br>接住它，续一句，再把链接传给下一个人——<br>没人知道故事最后会长成什么样，包括第一棒。</p>
+    <div class="stats">
+      <div class="stat">正在生长的故事 <b id="stChains">–</b></div>
+      <div class="stat">全网已接 <b id="stSegs">–</b> 棒</div>
+    </div>
+  </header>
+
+  <div id="viewHome">
+    <section class="card">
+      <h2>🚀 开一条新接龙</h2>
+      <label>故事的第一句（埋个钩子，后面的人才好接）<span class="dice" id="btnDice">🎲 随机灵感</span></label>
+      <textarea id="fFirst" rows="2" maxlength="40" placeholder="例：我家的扫地机器人，昨晚自己拖着行李箱出门了。"></textarea>
+      <label>你的署名（你将成为第 1 棒）</label>
+      <input type="text" id="fName" maxlength="16" placeholder="例：无名侠客">
+      <button class="btn acc" id="btnStart">点火 · 生成我的接龙链接</button>
+      <p class="mini" style="color:#8b8172;margin-top:10px">把链接发出去，朋友续一句再传给下一个人。<br>每一棒都会署名，故事的家谱会越长越壮观。</p>
+    </section>
+    <section style="margin-top:22px">
+      <h2 style="font-size:18px;margin:0 4px">🌱 正在生长的故事（点进去接一棒）</h2>
+      <div id="hotList"></div>
+    </section>
+  </div>
+
+  <div id="viewChain" class="hidden"></div>
+
+  <p class="mini">一句话接龙宇宙 · 一个关于「传递」的实验<br>运行在一台树莓派上 · 每条链都独一无二</p>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2600)}
+const STARTERS=['我家的扫地机器人，昨晚自己拖着行李箱出门了。','外婆的腌菜坛子里，住着一个只在半夜唱歌的小人。','公司楼下的流浪猫，今天戴着工牌来上班了。','我在二手市场买的闹钟，每天都会提前三分钟响——提醒我还没发生的事。','爷爷的收音机收到了一段来自明天的天气预报。','小区快递柜第 7 格，永远没有人取，里面有微光。'];
+$('#btnDice').onclick=()=>{$('#fFirst').value=STARTERS[Math.floor(Math.random()*STARTERS.length)]};
+
+/* ---------- state: API chain (id) OR URL chain (c=) ---------- */
+let DEMO=false, chain=null, hot=[];
+const enc=o=>btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+const dec=s=>JSON.parse(decodeURIComponent(escape(atob(s.replace(/-/g,'+').replace(/_/g,'/')))));
+async function api(path,opt){const r=await fetch(path,opt);if(!r.ok)throw new Error(r.status);return r.json()}
+const myName=()=>localStorage.getItem('jl_name')||'';
+const SAMPLE=[
+ {id:'S1',title:'会说话的冰箱',ended:false,views:128,segments:[{t:'凌晨三点，我听见冰箱在小声背单词。',by:'夜猫子零号'},{t:'它说它想考雅思，去看看更大的厨房。',by:'路过的人乙'},{t:'我把最后一盒牛奶留给了它，说：去吧，别回头。',by:'牛奶赞助商'}]},
+ {id:'S2',title:'猫的辞职信',ended:false,views:86,segments:[{t:'我家猫在键盘上踩出了一封辞职信。',by:'铲屎官本官'},{t:'信上说：罐头自由没有实现，本猫决定去流浪。',by:'隔壁老王'}]},
+];
+
+async function boot(){
+  const q=new URLSearchParams(location.search);
+  if(q.get('c')){try{chain=dec(q.get('c'));DEMO=true;return showChain()}catch{}}
+  if(q.get('id')){
+    try{chain=await api('/api/chains/'+q.get('id'));return showChain()}
+    catch{toast('这条链找不到了，看看其他故事吧')}
+  }
+  loadHot();
+}
+async function loadHot(){
+  try{hot=await api('/api/chains');const st=await api('/api/stats');$('#stChains').textContent=st.chains;$('#stSegs').textContent=st.segments;DEMO=false}
+  catch{hot=structuredClone(SAMPLE);DEMO=true;$('#stChains').textContent=hot.length;$('#stSegs').textContent=hot.reduce((a,c)=>a+c.segments.length,0)}
+  renderHot();
+}
+function renderHot(){
+  const el=$('#hotList');el.innerHTML='';
+  hot.forEach(c=>{
+    const d=document.createElement('div');d.className='chain-item';
+    d.innerHTML=`<div class="t">${esc(c.title)}<span class="pill ${c.ended?'end':''}">${c.ended?'已完结':'已传 '+c.segments.length+' 棒'}</span></div>
+    <div class="first">「${esc(c.segments[0].t)}」</div>
+    <div class="m">最新一棒 · ${esc(c.segments[c.segments.length-1].by)}：${esc(c.segments[c.segments.length-1].t)}</div>`;
+    d.onclick=()=>openChain(c);el.appendChild(d);
+  });
+}
+async function openChain(c){
+  if(!DEMO&&c.id&&!String(c.id).startsWith('S')){try{chain=await api('/api/chains/'+c.id)}catch{chain=c}}
+  else chain=c;
+  history.replaceState(null,'',chainURL(chain));
+  showChain();scrollTo({top:0,behavior:'smooth'});
+}
+function chainURL(c){
+  if(!DEMO&&c.id&&!/^S/.test(c.id))return location.origin+location.pathname+'?id='+c.id;
+  return location.origin+location.pathname+'?c='+enc({title:c.title,ended:c.ended,segments:c.segments});
+}
+
+/* ---------- chain view ---------- */
+function showChain(){
+  $('#viewHome').classList.add('hidden');
+  const v=$('#viewChain');v.classList.remove('hidden');
+  const c=chain,n=c.segments.length;
+  const segs=c.segments.map((s,i)=>`<div class="seg"><div class="txt">${esc(s.t)}</div><div class="by">第 ${i+1} 棒 · <b>${esc(s.by)}</b></div></div>`).join('');
+  v.innerHTML=`
+  <section class="card">
+    <div class="manuscript">
+      <div class="ctitle">《${esc(c.title)}》</div>
+      <div class="cmeta">${c.ended?'🏁 已完结 · 共':'🌱 生长中 · 已传'} ${n} 棒 · ${c.views?('已被围观 '+c.views+' 次 · '):''}始于一位 ${esc(c.segments[0].by)}</div>
+      ${segs}
+      ${c.ended?'<div style="text-align:center;padding:14px 0 4px;font-size:18px;font-weight:800">—— 全文完 · 谢谢每一棒 ——</div>':''}
+    </div>
+    ${c.ended?'':`<div class="progress-note">📣 现在轮到你了：你是<b>第 ${n+1} 棒</b>。续一句（最多 40 字），把链接传给下一个人，故事才能继续长大。超过 3 天没人接，这条链就会成为传说。</div>
+    <label>你的这一句</label>
+    <textarea id="aText" rows="2" maxlength="40" placeholder="接上剧情，别让它断在你手里……"></textarea>
+    <label>你的署名</label>
+    <input type="text" id="aName" maxlength="16" placeholder="例：无名侠客" value="${esc(myName())}">
+    <button class="btn acc" id="btnAdd">✍️ 接上这一棒</button>
+    <button class="btn ghost" id="btnEnd" style="margin-top:10px">🏁 我来写大结局（续一句并完结）</button>`}
+    <div class="actions">
+      <button class="btn pink small" onclick="makePoster()">📸 生成故事海报</button>
+      <button class="btn ghost small" onclick="shareChain()">🔗 复制链接传给下一个人</button>
+      <button class="btn ghost small" onclick="goHome()">← 回宇宙首页</button>
+    </div>
+  </section>`;
+  if(!c.ended){
+    $('#btnAdd').onclick=()=>addSeg(false);
+    $('#btnEnd').onclick=()=>addSeg(true);
+  }
+}
+window.goHome=()=>{chain=null;history.replaceState(null,'',location.pathname);$('#viewChain').classList.add('hidden');$('#viewHome').classList.remove('hidden');loadHot()};
+async function addSeg(end){
+  const t=$('#aText').value.trim(),by=$('#aName').value.trim()||'无名侠客';
+  if(t.length<2)return toast('至少写 2 个字再传棒呀');
+  localStorage.setItem('jl_name',by);
+  if(!DEMO&&chain.id&&!/^S/.test(chain.id)){
+    try{chain=await api('/api/chains/'+chain.id+'/add',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({t,by,end})})}
+    catch(e){return toast('提交失败，再试一次')}
+  }else{
+    chain.segments.push({t,by});if(end)chain.ended=true;
+    history.replaceState(null,'',chainURL(chain));
+  }
+  showChain();
+  toast(end?'🏁 大结局写好了！海报发出去，让大家看看这故事的结局':'🎉 你是第 '+chain.segments.length+' 棒！快把链接传给下一个人');
+  setTimeout(()=>makePoster(true),600);
+}
+window.shareChain=function(){
+  const url=chainURL(chain);
+  const done=()=>toast('链接已复制！传给下一个人，故事等他续');
+  if(navigator.share){navigator.share({title:'一句话接龙宇宙',text:'一个故事传到了我手里，我刚续了一句，快来接下一棒！',url}).catch(()=>{})}
+  else if(navigator.clipboard){navigator.clipboard.writeText(url).then(done)}
+  else prompt('复制这个链接',url);
+};
+window.makePoster=function(auto){
+  const c=chain,cv=document.createElement('canvas');cv.width=750;cv.height=1000;
+  const g=cv.getContext('2d');
+  const grad=g.createLinearGradient(0,0,0,1000);grad.addColorStop(0,'#241a45');grad.addColorStop(1,'#17122b');
+  g.fillStyle=grad;g.fillRect(0,0,750,1000);
+  g.fillStyle='#ffcf4d';g.textAlign='center';g.font='900 40px sans-serif';
+  g.fillText('《'+c.title.slice(0,14)+'》',375,110);
+  g.fillStyle='#b7aede';g.font='23px sans-serif';
+  g.fillText(c.ended?'🏁 已完结 · 全网接龙共 '+c.segments.length+' 棒':'🌱 已传 '+c.segments.length+' 棒 · 故事还在生长',375,154);
+  g.textAlign='left';let y=220;
+  g.font='27px sans-serif';
+  c.segments.slice(0,12).forEach((s,i)=>{
+    const line='「'+s.t+'」';
+    const words=line.split('');let cur='';
+    for(const ch of words){if(g.measureText(cur+ch).width>590){g.fillStyle='#efeafd';g.fillText(cur,80,y);y+=38;cur=ch}else cur+=ch}
+    g.fillStyle='#efeafd';g.fillText(cur,80,y);y+=34;
+    g.fillStyle='#8f83b8';g.font='20px sans-serif';g.fillText('— 第 '+(i+1)+' 棒 · '+s.by,80,y);y+=40;g.font='27px sans-serif';
+    if(y>860)return;
+  });
+  g.fillStyle='#ffcf4d';g.font='800 25px sans-serif';g.textAlign='center';
+  g.fillText(c.ended?'—— 全文完 ——':'下一棒，会是谁？',375,918);
+  g.fillStyle='#8f83b8';g.font='20px sans-serif';
+  g.fillText('一句话接龙宇宙 · 你写一句，传遍全网',375,956);
+  const a=document.createElement('a');a.download='接龙-'+c.title+'.png';a.href=cv.toDataURL('image/png');a.click();
+  if(!auto)toast('海报已生成！配上链接一起发，下一棒就是他');
+};
+
+/* ---------- start a chain ---------- */
+$('#btnStart').onclick=async()=>{
+  const first=$('#fFirst').value.trim(),by=$('#fName').value.trim()||'无名侠客';
+  if(first.length<5)return toast('第一句至少 5 个字，钩子要够劲');
+  localStorage.setItem('jl_name',by);
+  let c=null;
+  if(!DEMO){try{c=await api('/api/chains',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({first,by,title:first.replace(/[。！？!?,，、]/g,'').slice(0,10)})})}catch{c=null}}
+  if(!c){DEMO=true;c={title:first.replace(/[。！？!?,，、]/g,'').slice(0,10),ended:false,segments:[{t:first,by}]}}
+  chain=c;history.replaceState(null,'',chainURL(c));showChain();
+  toast('🔥 点火成功！复制链接发出去，等第一个人来接棒');
+};
+if(myName())$('#fName').value=myName();
+boot();
+</script>
+</body>
+</html>
