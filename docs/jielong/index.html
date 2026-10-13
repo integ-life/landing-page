@@ -56,6 +56,12 @@ textarea:focus,input:focus{outline:2px solid var(--acc);border-color:transparent
 .mini{font-size:12.5px;color:#8f83b8;text-align:center;margin-top:20px;line-height:1.7}
 .dice{float:right;font-size:13px;color:#c98a1b;cursor:pointer;font-weight:600}
 .progress-note{background:#fff4d6;border:1px dashed #d9a521;border-radius:10px;padding:10px 12px;font-size:14px;color:#6b5410;margin-top:12px;line-height:1.6}
+.themes{display:flex;gap:8px;margin-top:12px;align-items:center;flex-wrap:wrap}
+.themes .tl{font-size:13px;color:#8b8172}
+.theme{width:52px;height:68px;border-radius:9px;overflow:hidden;border:2.5px solid transparent;cursor:pointer;padding:0;background:#eee;position:relative}
+.theme img{width:100%;height:100%;object-fit:cover;display:block}
+.theme.on{border-color:var(--acc2);transform:scale(1.06)}
+.theme span{position:absolute;left:0;right:0;bottom:0;background:rgba(20,12,40,.72);color:#fff;font-size:10.5px;text-align:center;padding:1.5px 0}
 </style>
 </head>
 <body>
@@ -137,6 +143,7 @@ function renderHot(){
 async function openChain(c){
   if(!DEMO&&c.id&&!String(c.id).startsWith('S')){try{chain=await api('/api/chains/'+c.id)}catch{chain=c}}
   else chain=c;
+  posterTheme='';
   history.replaceState(null,'',chainURL(chain));
   showChain();scrollTo({top:0,behavior:'smooth'});
 }
@@ -150,6 +157,7 @@ function showChain(){
   $('#viewHome').classList.add('hidden');
   const v=$('#viewChain');v.classList.remove('hidden');
   const c=chain,n=c.segments.length;
+  if(!posterTheme)posterTheme=autoTheme(c);
   const segs=c.segments.map((s,i)=>`<div class="seg"><div class="txt">${esc(s.t)}</div><div class="by">第 ${i+1} 棒 · <b>${esc(s.by)}</b></div></div>`).join('');
   v.innerHTML=`
   <section class="card">
@@ -166,6 +174,7 @@ function showChain(){
     <input type="text" id="aName" maxlength="16" placeholder="例：无名侠客" value="${esc(myName())}">
     <button class="btn acc" id="btnAdd">✍️ 接上这一棒</button>
     <button class="btn ghost" id="btnEnd" style="margin-top:10px">🏁 我来写大结局（续一句并完结）</button>`}
+    <div class="themes"><span class="tl">🎨 海报画风：</span>${THEMES.map(t=>`<button class="theme ${t.id===posterTheme?'on':''}" data-theme="${t.id}" title="${t.name}"><img src="poster-bg/${t.id}.jpg" alt="${t.name}"><span>${t.name}</span></button>`).join('')}</div>
     <div class="actions">
       <button class="btn pink small" onclick="makePoster()">📸 生成故事海报</button>
       <button class="btn ghost small" onclick="shareChain()">🔗 复制链接传给下一个人</button>
@@ -176,6 +185,8 @@ function showChain(){
     $('#btnAdd').onclick=()=>addSeg(false);
     $('#btnEnd').onclick=()=>addSeg(true);
   }
+  v.querySelectorAll('[data-theme]').forEach(b=>b.onclick=()=>{posterTheme=b.dataset.theme;
+    v.querySelectorAll('[data-theme]').forEach(x=>x.classList.toggle('on',x.dataset.theme===posterTheme))});
 }
 window.goHome=()=>{chain=null;history.replaceState(null,'',location.pathname);$('#viewChain').classList.add('hidden');$('#viewHome').classList.remove('hidden');loadHot()};
 async function addSeg(end){
@@ -200,31 +211,93 @@ window.shareChain=function(){
   else if(navigator.clipboard){navigator.clipboard.writeText(url).then(done)}
   else prompt('复制这个链接',url);
 };
-window.makePoster=function(auto){
+/* ---------- poster with AI art backgrounds ---------- */
+const THEMES=[
+ {id:'cosmic',name:'星链',kw:[]},
+ {id:'fridge',name:'冰箱',kw:['冰箱','厨房','牛奶','奶','吃','蛋糕','冰']},
+ {id:'cat',name:'猫咪',kw:['猫','狗','宠物','铲屎']},
+ {id:'elevator',name:'电梯',kw:['电梯','公司','加班','楼','保安','同事']},
+];
+let posterTheme='';
+function autoTheme(c){
+  const text=c.title+c.segments.map(s=>s.t).join('');
+  let best='cosmic',score=0;
+  THEMES.forEach(t=>{const s=t.kw.reduce((a,k)=>a+(text.includes(k)?1:0),0);if(s>score){score=s;best=t.id}});
+  return best;
+}
+const bgCache={};
+function loadBG(id){
+  if(bgCache[id])return Promise.resolve(bgCache[id]);
+  return new Promise(res=>{const im=new Image();
+    im.onload=()=>{bgCache[id]=im;res(im)};
+    im.onerror=()=>res(null);
+    im.src='poster-bg/'+id+'.jpg'});
+}
+function wrapLines(g,text,maxW){
+  const out=[];let cur='';
+  for(const ch of text){if(g.measureText(cur+ch).width>maxW&&cur){out.push(cur);cur=ch}else cur+=ch}
+  if(cur)out.push(cur);return out;
+}
+function roundRect(g,x,y,w,h,r){g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath()}
+window.makePoster=async function(auto){
   const c=chain,cv=document.createElement('canvas');cv.width=750;cv.height=1000;
   const g=cv.getContext('2d');
-  const grad=g.createLinearGradient(0,0,0,1000);grad.addColorStop(0,'#241a45');grad.addColorStop(1,'#17122b');
-  g.fillStyle=grad;g.fillRect(0,0,750,1000);
-  g.fillStyle='#ffcf4d';g.textAlign='center';g.font='900 40px sans-serif';
-  g.fillText('《'+c.title.slice(0,14)+'》',375,110);
-  g.fillStyle='#b7aede';g.font='23px sans-serif';
-  g.fillText(c.ended?'🏁 已完结 · 全网接龙共 '+c.segments.length+' 棒':'🌱 已传 '+c.segments.length+' 棒 · 故事还在生长',375,154);
-  g.textAlign='left';let y=220;
-  g.font='27px sans-serif';
-  c.segments.slice(0,12).forEach((s,i)=>{
-    const line='「'+s.t+'」';
-    const words=line.split('');let cur='';
-    for(const ch of words){if(g.measureText(cur+ch).width>590){g.fillStyle='#efeafd';g.fillText(cur,80,y);y+=38;cur=ch}else cur+=ch}
-    g.fillStyle='#efeafd';g.fillText(cur,80,y);y+=34;
-    g.fillStyle='#8f83b8';g.font='20px sans-serif';g.fillText('— 第 '+(i+1)+' 棒 · '+s.by,80,y);y+=40;g.font='27px sans-serif';
-    if(y>860)return;
-  });
-  g.fillStyle='#ffcf4d';g.font='800 25px sans-serif';g.textAlign='center';
-  g.fillText(c.ended?'—— 全文完 ——':'下一棒，会是谁？',375,918);
-  g.fillStyle='#8f83b8';g.font='20px sans-serif';
-  g.fillText('一句话接龙宇宙 · 你写一句，传遍全网',375,956);
+  const theme=posterTheme||autoTheme(c);
+  const img=await loadBG(theme);
+  if(img){ // cover-fit the AI artwork
+    const s=Math.max(750/img.width,1000/img.height),w=img.width*s,h=img.height*s;
+    g.drawImage(img,(750-w)/2,(1000-h)/2,w,h);
+  }else{
+    const grad=g.createLinearGradient(0,0,0,1000);grad.addColorStop(0,'#241a45');grad.addColorStop(1,'#17122b');
+    g.fillStyle=grad;g.fillRect(0,0,750,1000);
+  }
+  // top + bottom scrims for legibility
+  let sc=g.createLinearGradient(0,0,0,300);sc.addColorStop(0,'rgba(12,7,26,.66)');sc.addColorStop(1,'rgba(12,7,26,0)');
+  g.fillStyle=sc;g.fillRect(0,0,750,300);
+  sc=g.createLinearGradient(0,760,0,1000);sc.addColorStop(0,'rgba(12,7,26,0)');sc.addColorStop(1,'rgba(12,7,26,.78)');
+  g.fillStyle=sc;g.fillRect(0,760,750,240);
+  g.strokeStyle='rgba(255,207,77,.5)';g.lineWidth=2;g.strokeRect(16,16,718,968);
+  // title block
+  g.textAlign='center';g.shadowColor='rgba(0,0,0,.55)';g.shadowBlur=10;
+  g.fillStyle='#ffcf4d';g.font='900 44px sans-serif';
+  g.fillText('《'+c.title.slice(0,13)+'》',375,98);
+  g.fillStyle='#efeafd';g.font='600 23px sans-serif';g.shadowBlur=6;
+  g.fillText(c.ended?'🏁 已完结 · 全网接龙共 '+c.segments.length+' 棒':'🌱 已传 '+c.segments.length+' 棒 · 故事还在生长',375,140);
+  g.shadowBlur=0;
+  // story panel
+  const px=44,py=168,pw=662,ph=636;
+  roundRect(g,px,py,pw,ph,18);
+  g.fillStyle='rgba(19,13,36,.78)';g.fill();
+  g.strokeStyle='rgba(255,207,77,.35)';g.lineWidth=1.5;g.stroke();
+  g.textAlign='left';let y=py+52;const maxY=py+ph-26;
+  g.font='26px sans-serif';
+  let shown=0;
+  for(let i=0;i<c.segments.length;i++){
+    const s=c.segments[i];
+    const lines=wrapLines(g,'「'+s.t+'」',pw-64);
+    const need=lines.length*36+30;
+    if(y+need>maxY){break}
+    g.fillStyle='#f4efff';
+    lines.forEach(ln=>{g.fillText(ln,px+32,y);y+=36});
+    g.fillStyle='#c9a86a';g.font='19px sans-serif';
+    g.fillText('— 第 '+(i+1)+' 棒 · '+s.by,px+32,y);y+=34;g.font='26px sans-serif';
+    shown++;
+  }
+  if(shown<c.segments.length){
+    g.fillStyle='#b7aede';g.font='21px sans-serif';
+    g.fillText('…… 还有 '+(c.segments.length-shown)+' 棒，点开链接看全文',px+32,Math.min(y+8,maxY));
+  }
+  // footer CTA
+  g.textAlign='center';g.shadowColor='rgba(0,0,0,.6)';g.shadowBlur=8;
+  g.fillStyle='#ffcf4d';g.font='800 29px sans-serif';
+  g.fillText(c.ended?'—— 全文完 · 谢谢每一棒 ——':'下一棒，会是谁？',375,882);
+  g.fillStyle='#efeafd';g.font='21px sans-serif';
+  g.fillText('一句话接龙宇宙 · 你写一句，传遍全网',375,922);
+  g.fillStyle='rgba(239,234,253,.75)';g.font='18px sans-serif';
+  g.fillText('integ.life/jielong',375,952);
+  g.shadowBlur=0;
   const a=document.createElement('a');a.download='接龙-'+c.title+'.png';a.href=cv.toDataURL('image/png');a.click();
-  if(!auto)toast('海报已生成！配上链接一起发，下一棒就是他');
+  if(!auto)toast('🎨 新海报已生成！这张值得发出去');
 };
 
 /* ---------- start a chain ---------- */
@@ -235,7 +308,7 @@ $('#btnStart').onclick=async()=>{
   let c=null;
   if(!DEMO){try{c=await api('/api/chains',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({first,by,title:first.replace(/[。！？!?,，、]/g,'').slice(0,10)})})}catch{c=null}}
   if(!c){DEMO=true;c={title:first.replace(/[。！？!?,，、]/g,'').slice(0,10),ended:false,segments:[{t:first,by}]}}
-  chain=c;history.replaceState(null,'',chainURL(c));showChain();
+  chain=c;posterTheme='';history.replaceState(null,'',chainURL(c));showChain();
   toast('🔥 点火成功！复制链接发出去，等第一个人来接棒');
 };
 if(myName())$('#fName').value=myName();
