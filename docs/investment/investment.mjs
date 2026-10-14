@@ -1,7 +1,7 @@
 import {eventNames, stateNames, escapeHTML as esc, pct, money, nearestDay, filterEvents, pageEvents, seriesForChart, validateData} from './research-core.mjs?v=20260908';
 
 const $ = id => document.getElementById(id);
-const state = {manifest: null, info: null, payload: null, days: [], day: 0, page: 0, request: 0, scale: null, cache: new Map()};
+const state = {manifest: null, info: null, payload: null, days: [], day: 0, page: 0, cycle: 0, request: 0, scale: null, cache: new Map()};
 const colorClass = n => n > 0 ? 'positive' : n < 0 ? 'negative' : '';
 const colors = {equity: '#2d5f9a', buy_hold_100: '#16736b', buy_hold: '#b2843c'};
 const sessionFormatter = new Intl.DateTimeFormat('zh-CN', {year:'numeric',month:'long',day:'numeric',timeZone:'UTC'});
@@ -100,7 +100,12 @@ function eventNote(e){
   return e.reason?esc(e.reason):'';
 }
 function renderCycle(index){
-  const cycle=state.payload?.cycles[index];
+  const cycles=state.payload?.cycles||[];
+  const cycle=cycles[index];
+  state.cycle=index;
+  if($('cycle-select').value!==String(index)&&cycles.length)$('cycle-select').value=String(index);
+  $('cycle-prev').disabled=!cycle||index<=0;
+  $('cycle-next').disabled=!cycle||index>=cycles.length-1;
   if(!cycle){$('cycle-pnl').textContent='尚无已完成循环';$('cycle-timeline').replaceChildren();$('cycle-summary').textContent='此场景的全部事件仍可在下方账本查看。';return;}
   const stockEvents=cycle.events.filter(e=>['PUT_ASSIGNED','CALL_ASSIGNED'].includes(e.action));
   const credits=cycle.events.filter(e=>['SELL_PUT','SELL_CALL'].includes(e.action)).reduce((s,e)=>s+e.cash_flow,0);
@@ -119,6 +124,8 @@ $('selected-date').addEventListener('change',e=>{if(e.target.value&&state.days.l
 $('previous-day').addEventListener('click',()=>selectDay(state.day-1));$('next-day').addEventListener('click',()=>selectDay(state.day+1));
 $('chart-mode').addEventListener('change',renderChart);$('show-full').addEventListener('change',renderChart);
 $('cycle-select').addEventListener('change',e=>renderCycle(Number(e.target.value)));
+$('cycle-prev').addEventListener('click',()=>renderCycle(state.cycle-1));
+$('cycle-next').addEventListener('click',()=>renderCycle(state.cycle+1));
 $('event-filter').addEventListener('change',()=>{state.page=0;renderEvents();});
 $('events-prev').addEventListener('click',()=>{state.page--;renderEvents();});$('events-next').addEventListener('click',()=>{state.page++;renderEvents();});
 $('equity-chart').addEventListener('pointermove',e=>{if(!state.scale||e.pointerType==='touch')return;const rect=e.currentTarget.getBoundingClientRect();const xx=(e.clientX-rect.left)/rect.width*state.scale.width;selectDay((xx-state.scale.left)/state.scale.innerW*(state.days.length-1));});
