@@ -1,0 +1,95 @@
+/* Portal-only editorial layer. Shared controls and content pages keep their styles. */
+.portal {
+  --paper: #f1eee6; --paper-deep: #e4dfd3; --ink: #171a1f;
+  --muted: #62635f; --line: rgba(23, 26, 31, .18);
+  background: var(--paper); color: var(--ink);
+}
+:root[data-integ-theme="dark"] .portal {
+  --paper: var(--il-bg); --paper-deep: var(--il-subtle); --ink: var(--il-text);
+  --muted: var(--il-muted); --line: var(--il-border);
+}
+.portal .hero { min-height: 42rem; padding-block: clamp(3rem, 7vw, 6rem); }
+.portal .hero-copy, .portal .section-heading > *, .portal .identity > * { min-width: 0; }
+.portal .constellation { animation: none; isolation: isolate; }
+.portal .constellation-note { top: -1.75rem; left: 50%; transform: translateX(-50%); white-space: nowrap; }
+.portal .manifesto { background: color-mix(in srgb, var(--paper-deep) 45%, var(--paper)); }
+.portal .eyebrow { font-size: .68rem; letter-spacing: .16em; }
+.portal .products { padding-block: clamp(3rem, 7vw, 6rem); }
+.portal .section-heading { gap: 1.5rem 3rem; }
+.portal .section-note { font-size: .9rem; }
+.portal .product-grid { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; border: 0; }
+.portal .product-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  gap: 1.3rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--paper) 90%, white);
+  color: var(--ink);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+.portal .product-card::after { content: none; }
+.portal .product-card:hover, .portal .product-card:focus-within {
+  transform: translateY(-4px);
+  background: color-mix(in srgb, var(--paper) 90%, white);
+  color: var(--ink);
+  border-color: var(--muted);
+  box-shadow: 0 12px 26px -16px color-mix(in srgb, var(--ink) 40%, transparent);
+}
+.portal .product-card p:not(.card-domain), .portal .product-card:hover p { color: var(--muted); }
+.portal .card-visual { position: relative; aspect-ratio: 8 / 5; overflow: hidden; background: #e4dfd3; }
+.portal .card-art { display: block; width: 100%; height: 100%; object-fit: cover; }
+.portal .product-card img.card-glyph {
+  position: absolute; bottom: .65rem; left: .65rem;
+  width: 2.5rem; height: 2.5rem; border-radius: .55rem;
+  box-shadow: 0 2px 8px #171a1f18;
+}
+.portal .card-index {
+  top: 1.65rem; right: 1.65rem; z-index: 1;
+  padding: .15rem .45rem; background: #f1eee6; color: #62635f;
+}
+.portal .card-domain { font-size: .62rem; letter-spacing: .035em; overflow-wrap: anywhere; }
+.portal .card-badge { margin: .3rem .2rem 0 0; max-width: 100%; white-space: normal; }
+.portal .product-card h3 { font-size: clamp(2.4rem, 4vw, 3.25rem); line-height: 1.05; overflow-wrap: anywhere; }
+.portal .product-card p:not(.card-domain) { font-size: .94rem; line-height: 1.65; }
+.portal .card-action {
+  display: inline-flex; align-items: center; justify-content: center;
+  align-self: flex-start; min-height: 2.75rem; margin-top: auto;
+  padding: .5rem 1rem; border: 1px solid var(--ink); background: transparent;
+}
+.portal .product-card > .card-links { margin-top: auto; }
+.portal .card-guide-link { min-height: 2.75rem; }
+.portal .identity {
+  gap: 2.5rem; padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2.5rem);
+  background: color-mix(in srgb, var(--paper-deep) 45%, var(--paper));
+}
+.portal .identity h2 { font-size: clamp(2.5rem, 5vw, 4rem); }
+.portal .identity-copy > p:last-child { max-width: 38rem; margin: 1.5rem 0 0; color: var(--muted); font-size: 1.08rem; }
+.portal .identity-visual {
+  position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem; width: 100%; max-width: 30rem; padding: .5rem; margin-inline: auto;
+}
+.portal .identity-tile { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: .5rem; }
+.portal .identity-center {
+  position: absolute; left: 50%; top: 50%; z-index: 1;
+  width: 4.5rem; height: 4.5rem; transform: translate(-50%, -50%);
+  border: .35rem solid var(--paper); border-radius: 1rem; box-shadow: 0 0 0 1px var(--line);
+}
+@media (min-width: 48rem) {
+  .portal .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .portal .product-card { grid-column: auto; border-right: 1px solid var(--line); }
+  .portal .identity { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
+}
+@media (min-width: 64rem) {
+  .portal .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .portal .product-card { padding: 1.25rem; }
+  .portal .card-index { top: 1.9rem; right: 1.9rem; }
+}
+@media (max-width: 25rem) {
+  .portal h1 { font-size: clamp(2.6rem, 12vw, 3.1rem); }
+  .portal .constellation { width: min(100%, 27rem); }
+  .portal .manifesto p { padding-inline: .75rem; }
+  .portal .identity-visual { gap: .75rem; }
+}
