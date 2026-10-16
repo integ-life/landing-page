@@ -194,8 +194,7 @@ footer {
 
 .eyebrow,
 .card-domain,
-.card-index,
-.constellation-note {
+.card-index {
   margin: 0;
   font-family: "SFMono-Regular", Consolas, monospace;
   font-size: 0.72rem;
@@ -234,102 +233,6 @@ h1 {
   margin: 0;
   color: #3f4140;
   font-size: clamp(1.05rem, 2vw, 1.3rem);
-}
-
-.constellation {
-  position: relative;
-  width: min(85vw, 27rem);
-  aspect-ratio: 1;
-  margin: 3rem auto 0;
-  border: 1px solid var(--ink);
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--paper) 78%, transparent);
-  animation: reveal 700ms 180ms both;
-}
-
-.orbit {
-  position: absolute;
-  inset: 17%;
-  border: 1px dashed var(--line);
-  border-radius: 50%;
-}
-
-.orbit-two {
-  inset: 34%;
-}
-
-.star {
-  position: absolute;
-  display: grid;
-  width: 2.75rem;
-  height: 2.75rem;
-  place-items: center;
-  border: 1px solid var(--ink);
-  border-radius: 50%;
-  background: var(--paper);
-  font-family: "Bodoni 72", Didot, serif;
-  font-size: 1rem;
-  font-weight: 700;
-}
-
-.star-core {
-  top: 50%;
-  left: 50%;
-  width: 4.4rem;
-  height: 4.4rem;
-  border: 0;
-  background: var(--red);
-  color: white;
-  font-size: 2rem;
-  transform: translate(-50%, -50%);
-}
-
-.star-lang {
-  top: 5%;
-  left: 45%;
-}
-
-.star-chat {
-  top: 14%;
-  right: 15%;
-}
-
-.star-xiangqi {
-  top: 42%;
-  right: 1%;
-}
-
-.star-chess {
-  right: 14%;
-  bottom: 13%;
-}
-
-.star-snake {
-  bottom: 3%;
-  left: 45%;
-}
-
-.star-games {
-  bottom: 14%;
-  left: 14%;
-}
-
-.star-tools {
-  top: 42%;
-  left: 1%;
-}
-
-.star-blog {
-  top: 14%;
-  left: 15%;
-}
-
-.constellation-note {
-  position: absolute;
-  top: 16%;
-  left: 8%;
-  color: var(--muted);
-  transform: rotate(-12deg);
 }
 
 .manifesto {
@@ -629,17 +532,6 @@ footer p {
   text-underline-offset: 0.25rem;
 }
 
-@keyframes reveal {
-  from {
-    opacity: 0;
-    transform: translateY(1.5rem) rotate(-3deg);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) rotate(0);
-  }
-}
-
 @media (min-width: 48rem) {
   .site-header,
   main,
@@ -655,11 +547,6 @@ footer p {
   .hero {
     grid-template-columns: minmax(0, 1.25fr) minmax(20rem, 0.75fr);
     gap: 3rem;
-  }
-
-  .constellation {
-    width: min(36vw, 27rem);
-    margin: 0;
   }
 
   .manifesto {

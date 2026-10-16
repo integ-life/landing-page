@@ -10,8 +10,14 @@
 }
 .portal .hero { min-height: 42rem; padding-block: clamp(3rem, 7vw, 6rem); }
 .portal .hero-copy, .portal .section-heading > *, .portal .identity > * { min-width: 0; }
-.portal .constellation { animation: none; isolation: isolate; }
-.portal .constellation-note { top: -1.75rem; left: 50%; transform: translateX(-50%); white-space: nowrap; }
+.portal .hero-illustration {
+  display: block;
+  width: min(100%, 27rem);
+  height: auto;
+  aspect-ratio: 1;
+  margin: 3rem auto 0;
+  mask-image: radial-gradient(ellipse closest-side, #000 82%, transparent 100%);
+}
 .portal .manifesto { background: color-mix(in srgb, var(--paper-deep) 45%, var(--paper)); }
 .portal .eyebrow { font-size: .68rem; letter-spacing: .16em; }
 .portal .products { padding-block: clamp(3rem, 7vw, 6rem); }
@@ -78,6 +84,7 @@
   border: .35rem solid var(--paper); border-radius: 1rem; box-shadow: 0 0 0 1px var(--line);
 }
 @media (min-width: 48rem) {
+  .portal .hero-illustration { margin-block: 0; }
   .portal .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .portal .product-card { grid-column: auto; border-right: 1px solid var(--line); }
   .portal .identity { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
@@ -89,7 +96,6 @@
 }
 @media (max-width: 25rem) {
   .portal h1 { font-size: clamp(2.6rem, 12vw, 3.1rem); }
-  .portal .constellation { width: min(100%, 27rem); }
   .portal .manifesto p { padding-inline: .75rem; }
   .portal .identity-visual { gap: .75rem; }
 }
