@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Integ.Life master mark</title>
+  <desc id="desc">A white leaf within a deep blue circle on warm paper.</desc>
+  <rect width="512" height="512" rx="112" fill="#f1eee6"/>
+  <circle cx="256" cy="256" r="168" fill="#274b62"/>
+  <path d="M142 302c19-108 102-175 229-188-18 112-97 207-229 188Z" fill="#fffdf7"/>
+  <path d="M142 342c71-71 137-137 217-213" fill="none" stroke="#fffdf7" stroke-width="19" stroke-linecap="round"/>
+  <circle cx="377" cy="126" r="13" fill="#e04b32"/>
+</svg>

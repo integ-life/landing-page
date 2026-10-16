@@ -1,8 +1,8 @@
-import './vendor/integ-ui-0.5.1/static.js';
+import './vendor/integ-ui-0.6.0/static.js';
 const header = document.querySelector('header.site-header, header.masthead');
 if (header) {
   const bar = document.createElement('integ-family-bar');
-  bar.setAttribute('product','home');
+  bar.setAttribute('product',location.pathname.startsWith('/investment/') ? 'investment' : 'home');
   bar.setAttribute('locale',document.documentElement.lang || 'en');
   const actions = header.querySelector('.header-actions') || document.createElement('div');
   if (!actions.parentElement) { const back = header.querySelector('.back-link'); if (back) actions.append(back); }

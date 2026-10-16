@@ -85,16 +85,16 @@ const copy = {
 
 // Investment joins the directory; keep the existing locale contract complete.
 const investmentCopy = {
-  en: ["Ten live products. One deliberately small ecosystem.", "Explore options strategies, model backtests, and the cash flows behind every Wheel cycle."],
-  "zh-CN": ["十个在线产品，一套刻意保持小而清晰的生态。", "从 Wheel 开始，查看期权策略、模型回测，以及每轮接货与交割背后的现金流。"],
-  es: ["Diez productos activos. Un ecosistema deliberadamente pequeño.", "Explora estrategias de opciones, simulaciones históricas y los flujos de efectivo de cada ciclo Wheel."],
-  fr: ["Dix produits en ligne. Un écosystème volontairement petit.", "Explorez les stratégies d’options, les simulations historiques et les flux de trésorerie de chaque cycle Wheel."],
-  de: ["Zehn aktive Produkte. Ein bewusst kleines Ökosystem.", "Optionsstrategien, modellbasierte Backtests und die Zahlungsströme jedes Wheel-Zyklus nachvollziehen."],
-  id: ["Sepuluh produk aktif. Ekosistem yang sengaja dibuat kecil.", "Jelajahi strategi opsi, backtest berbasis model, dan arus kas di setiap siklus Wheel."],
-  vi: ["Mười sản phẩm đang hoạt động. Một hệ sinh thái nhỏ có chủ đích.", "Khám phá chiến lược quyền chọn, kiểm thử bằng mô hình và dòng tiền trong mỗi chu kỳ Wheel."],
-  th: ["สิบผลิตภัณฑ์ที่พร้อมใช้งาน ในระบบนิเวศขนาดเล็กอย่างตั้งใจ", "สำรวจกลยุทธ์ออปชัน การทดสอบย้อนหลังด้วยแบบจำลอง และกระแสเงินสดในแต่ละรอบ Wheel"],
-  ja: ["10の公開プロダクト。意図的に小さく保つエコシステム。", "オプション戦略、モデルによるバックテスト、Wheelの各サイクルのキャッシュフローを確認できます。"],
-  ko: ["운영 중인 열 제품. 의도적으로 작게 유지한 생태계.", "옵션 전략, 모델 기반 백테스트와 각 Wheel 주기의 현금 흐름을 살펴보세요."],
+  en: ["Thirteen live products. One deliberately small ecosystem.", "Explore options strategies, model backtests, and the cash flows behind every Wheel cycle."],
+  "zh-CN": ["十三个在线产品，一套刻意保持小而清晰的生态。", "从 Wheel 开始，查看期权策略、模型回测，以及每轮接货与交割背后的现金流。"],
+  es: ["Trece productos activos. Un ecosistema deliberadamente pequeño.", "Explora estrategias de opciones, simulaciones históricas y los flujos de efectivo de cada ciclo Wheel."],
+  fr: ["Treize produits en ligne. Un écosystème volontairement petit.", "Explorez les stratégies d’options, les simulations historiques et les flux de trésorerie de chaque cycle Wheel."],
+  de: ["Dreizehn aktive Produkte. Ein bewusst kleines Ökosystem.", "Optionsstrategien, modellbasierte Backtests und die Zahlungsströme jedes Wheel-Zyklus nachvollziehen."],
+  id: ["Tiga belas produk aktif. Ekosistem yang sengaja dibuat kecil.", "Jelajahi strategi opsi, backtest berbasis model, dan arus kas di setiap siklus Wheel."],
+  vi: ["Mười ba sản phẩm đang hoạt động. Một hệ sinh thái nhỏ có chủ đích.", "Khám phá chiến lược quyền chọn, kiểm thử bằng mô hình và dòng tiền trong mỗi chu kỳ Wheel."],
+  th: ["ผลิตภัณฑ์ 13 รายการที่พร้อมใช้งาน ในระบบนิเวศขนาดเล็กอย่างตั้งใจ", "สำรวจกลยุทธ์ออปชัน การทดสอบย้อนหลังด้วยแบบจำลอง และกระแสเงินสดในแต่ละรอบ Wheel"],
+  ja: ["13の公開プロダクト。意図的に小さく保つエコシステム。", "オプション戦略、モデルによるバックテスト、Wheelの各サイクルのキャッシュフローを確認できます。"],
+  ko: ["운영 중인 열세 제품. 의도적으로 작게 유지한 생태계.", "옵션 전략, 모델 기반 백테스트와 각 Wheel 주기의 현금 흐름을 살펴보세요."],
 };
 for (const [locale, [directoryNote, investmentDescription]] of Object.entries(investmentCopy)) {
   Object.assign(copy[locale], {directoryNote, investmentDescription});
@@ -151,6 +151,63 @@ const cardCopy = {
 for (const [locale, [open, badgeAccount, chineseOnly]] of Object.entries(cardCopy)) {
   Object.assign(copy[locale], {open, badgeAccount});
   copy[locale].investmentDescription += chineseOnly;
+}
+
+// Descriptions copied from the pinned 0.6.0 registry for the portal's ten locales.
+const familyDescriptions = {
+  "en": {
+    "thingsDescription": "Catalog belongings and find where they are stored.",
+    "familyDescription": "Share everyday moments and preserve family memories.",
+    "contextDescription": "Keep project records and bring verified context to AI."
+  },
+  "zh-CN": {
+    "thingsDescription": "记录物品，查找它们的存放位置。",
+    "familyDescription": "分享日常点滴，留存家庭记忆。",
+    "contextDescription": "留存项目记录，为 AI 提供可追溯的上下文。"
+  },
+  "es": {
+    "thingsDescription": "Organiza tus objetos y encuentra dónde están.",
+    "familyDescription": "Comparte el día a día y conserva recuerdos familiares.",
+    "contextDescription": "Guarda registros de proyectos y aporta contexto verificable a la IA."
+  },
+  "fr": {
+    "thingsDescription": "Répertoriez vos objets et retrouvez leur emplacement.",
+    "familyDescription": "Partagez le quotidien et gardez les souvenirs de famille.",
+    "contextDescription": "Conservez les données de projet et un contexte vérifiable pour l’IA."
+  },
+  "de": {
+    "thingsDescription": "Erfasse Gegenstände und finde ihren Aufbewahrungsort.",
+    "familyDescription": "Teile den Alltag und bewahre Familienerinnerungen.",
+    "contextDescription": "Bewahre Projektaufzeichnungen und überprüfbaren Kontext für KI."
+  },
+  "id": {
+    "thingsDescription": "Catat barang dan temukan lokasi penyimpanannya.",
+    "familyDescription": "Bagikan keseharian dan simpan kenangan keluarga.",
+    "contextDescription": "Simpan catatan proyek dan konteks terverifikasi untuk AI."
+  },
+  "vi": {
+    "thingsDescription": "Ghi lại đồ đạc và tìm nơi cất giữ.",
+    "familyDescription": "Chia sẻ cuộc sống và lưu giữ kỷ niệm gia đình.",
+    "contextDescription": "Lưu bản ghi dự án và cung cấp ngữ cảnh có thể kiểm chứng cho AI."
+  },
+  "th": {
+    "thingsDescription": "บันทึกสิ่งของและค้นหาที่จัดเก็บ",
+    "familyDescription": "แบ่งปันชีวิตประจำวันและเก็บความทรงจำครอบครัว",
+    "contextDescription": "เก็บบันทึกโครงการและส่งบริบทที่ตรวจสอบได้ให้ AI"
+  },
+  "ja": {
+    "thingsDescription": "持ち物を記録し、保管場所を見つける。",
+    "familyDescription": "日々の出来事を共有し、家族の思い出を残す。",
+    "contextDescription": "プロジェクトの記録を保存し、検証できる文脈をAIへ。"
+  },
+  "ko": {
+    "thingsDescription": "물건을 기록하고 보관 위치를 찾으세요.",
+    "familyDescription": "일상을 나누고 가족의 추억을 간직하세요.",
+    "contextDescription": "프로젝트 기록을 보관하고 검증 가능한 맥락을 AI에 제공하세요."
+  }
+};
+for (const [locale, descriptions] of Object.entries(familyDescriptions)) {
+  Object.assign(copy[locale], descriptions);
 }
 
 const languageSelect = document.querySelector("[data-language-select]");
