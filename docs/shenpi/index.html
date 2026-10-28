@@ -261,10 +261,13 @@ function renderQueue(){
 async function doStamp(id,d,quick){
   const inp=document.getElementById('in-'+id);
   const comment=quick||(inp?inp.value.trim():'')||'阅。';
+  if(!DEMO){
+    try{const nc=await api('/api/cases/'+id+'/stamp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({d,c:comment})});
+      const i=cases.findIndex(x=>x.id===id);if(i>=0)cases[i]=nc;}
+    catch{toast('盖章没有成功，稍后再试');return}
+  }
+  else{const c=cases.find(x=>x.id===id);if(!c)return;c.stamps.push({d,c:comment,ts:Date.now()});saveLocal()}
   myStamps[id]=d;localStorage.setItem('sp_mine',JSON.stringify(myStamps));
-  if(!DEMO){try{const nc=await api('/api/cases/'+id+'/stamp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({d,c:comment})});
-    const i=cases.findIndex(x=>x.id===id);cases[i]=nc;}catch{}}
-  else{const c=cases.find(x=>x.id===id);c.stamps.push({d,c:comment,ts:Date.now()});saveLocal()}
   renderStats();renderQueue();toast(d==='pass'?'🈴 已盖章：通过！':'已驳回，毫不留情');
   const c=cases.find(x=>x.id===id);if(c&&verdict(c).total>=3)showDoc(c,true);
 }
