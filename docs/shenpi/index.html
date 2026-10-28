@@ -136,8 +136,32 @@ async function loadCases(){
   try{cases=await api('/api/cases');DEMO=false}
   catch{cases=JSON.parse(localStorage.getItem('sp_cases')||'null')||structuredClone(SEED);DEMO=true}
   renderStats();renderQueue();
-  const q=new URLSearchParams(location.search).get('case');
-  if(q){const c=cases.find(x=>x.id===q);if(c)showDoc(c,true)}
+  const params=new URLSearchParams(location.search);
+  const d=params.get('d'),q=params.get('case');
+  if(d){
+    let sc=null;
+    if(DEMO){try{sc=sanitizeCase(dec(d))}catch{}}
+    if(!sc)return toast('这张审批单不在本机，可能链接已失效');
+    let c=cases.find(x=>x.id===sc.id);
+    if(!c){cases.unshift(sc);saveLocal();c=sc;renderStats();renderQueue()}
+    showDoc(c,true);toast('这是朋友分享的审批单；你盖的章只保存在本机');
+  }else if(q){const c=cases.find(x=>x.id===q);if(c)showDoc(c,true);else toast('这张审批单不在本机，可能链接已失效')}
+}
+const enc=o=>btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+const dec=s=>JSON.parse(decodeURIComponent(escape(atob(s.replace(/-/g,'+').replace(/_/g,'/')))));
+function sanitizeCase(o){
+  if(!o||typeof o!=='object')throw new Error('bad case');
+  const matter=String(o.matter??'').slice(0,60);
+  if(matter.length<1)throw new Error('bad case');
+  const amount=Math.max(0,Math.floor(Number(o.amount))||0);
+  const ts=Number(o.ts);
+  return{
+    id:/^SP\d{4,8}$/.test(String(o.id))?String(o.id):'SP'+Math.floor(1000+Math.random()*9000),
+    matter,cat:CATS.includes(o.cat)?o.cat:'其他',
+    applicant:String(o.applicant??'').slice(0,16)||'匿名申请人',
+    amount:Math.min(amount,1e9),ts:Number.isFinite(ts)&&ts>0?ts:Date.now(),
+    stamps:(Array.isArray(o.stamps)?o.stamps:[]).slice(-20).map(s=>({d:s&&s.d==='pass'?'pass':'reject',c:String((s&&s.c)??'').slice(0,40),ts:Date.now()}))
+  };
 }
 function saveLocal(){if(DEMO)localStorage.setItem('sp_cases',JSON.stringify(cases))}
 function verdict(c){const p=c.stamps.filter(s=>s.d==='pass').length,r=c.stamps.length-p;
@@ -184,7 +208,10 @@ function showDoc(c,scroll){
   if(scroll)el.scrollIntoView({behavior:'smooth',block:'center'});
 }
 window.shareCase=function(id){
-  const url=location.origin+location.pathname+'?case='+id;
+  const c=cases.find(x=>x.id===id);
+  const url=DEMO&&c
+    ?location.origin+location.pathname+'?d='+enc({id:c.id,matter:c.matter,cat:c.cat,applicant:c.applicant,amount:c.amount,ts:c.ts,stamps:c.stamps.slice(-20).map(x=>({d:x.d,c:String(x.c).slice(0,40)}))})
+    :location.origin+location.pathname+'?case='+encodeURIComponent(id);
   const done=()=>toast('链接已复制！发给朋友，让他们来给你盖章（或拆台）');
   if(navigator.share){navigator.share({title:'路人审批所',text:'我提交了一件小事给全网审批，快来盖章！',url}).catch(()=>{})}
   else if(navigator.clipboard){navigator.clipboard.writeText(url).then(done)}
