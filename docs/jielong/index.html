@@ -116,11 +116,21 @@ const SAMPLE=[
  {id:'S2',title:'猫的辞职信',ended:false,views:86,segments:[{t:'我家猫在键盘上踩出了一封辞职信。',by:'铲屎官本官'},{t:'信上说：罐头自由没有实现，本猫决定去流浪。',by:'隔壁老王'}]},
 ];
 
+function sanitizeChain(o,fromApi){
+  if(!o||typeof o!=='object'||!Array.isArray(o.segments)||!o.segments.length)throw new Error('bad chain');
+  const c={title:String(o.title??'').slice(0,30),ended:!!o.ended,
+    segments:o.segments.slice(0,500).map(s=>({t:String((s&&s.t)??'').slice(0,40),by:String((s&&s.by)??'').slice(0,16)}))};
+  if(fromApi){
+    if(o.id!=null)c.id=String(o.id).slice(0,64);
+    const n=Math.floor(Number(o.views));if(n>0)c.views=n;
+  }
+  return c;
+}
 async function boot(){
   const q=new URLSearchParams(location.search);
-  if(q.get('c')){try{chain=dec(q.get('c'));DEMO=true;return showChain()}catch{}}
+  if(q.get('c')){try{chain=sanitizeChain(dec(q.get('c')));DEMO=true;return showChain()}catch{}}
   if(q.get('id')){
-    try{chain=await api('/api/chains/'+q.get('id'));return showChain()}
+    try{chain=sanitizeChain(await api('/api/chains/'+q.get('id')),true);return showChain()}
     catch{toast('这条链找不到了，看看其他故事吧')}
   }
   loadHot();
@@ -141,7 +151,7 @@ function renderHot(){
   });
 }
 async function openChain(c){
-  if(!DEMO&&c.id&&!String(c.id).startsWith('S')){try{chain=await api('/api/chains/'+c.id)}catch{chain=c}}
+  if(!DEMO&&c.id&&!String(c.id).startsWith('S')){try{chain=sanitizeChain(await api('/api/chains/'+c.id),true)}catch{chain=c}}
   else chain=c;
   posterTheme='';
   history.replaceState(null,'',chainURL(chain));
@@ -163,7 +173,7 @@ function showChain(){
   <section class="card">
     <div class="manuscript">
       <div class="ctitle">《${esc(c.title)}》</div>
-      <div class="cmeta">${c.ended?'🏁 已完结 · 共':'🌱 生长中 · 已传'} ${n} 棒 · ${c.views?('已被围观 '+c.views+' 次 · '):''}始于一位 ${esc(c.segments[0].by)}</div>
+      <div class="cmeta">${c.ended?'🏁 已完结 · 共':'🌱 生长中 · 已传'} ${n} 棒 · ${Number(c.views)>0?('已被围观 '+Math.floor(Number(c.views))+' 次 · '):''}始于一位 ${esc(c.segments[0].by)}</div>
       ${segs}
       ${c.ended?'<div style="text-align:center;padding:14px 0 4px;font-size:18px;font-weight:800">—— 全文完 · 谢谢每一棒 ——</div>':''}
     </div>
@@ -194,7 +204,7 @@ async function addSeg(end){
   if(t.length<2)return toast('至少写 2 个字再传棒呀');
   localStorage.setItem('jl_name',by);
   if(!DEMO&&chain.id&&!/^S/.test(chain.id)){
-    try{chain=await api('/api/chains/'+chain.id+'/add',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({t,by,end})})}
+    try{chain=sanitizeChain(await api('/api/chains/'+chain.id+'/add',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({t,by,end})}),true)}
     catch(e){return toast('提交失败，再试一次')}
   }else{
     chain.segments.push({t,by});if(end)chain.ended=true;

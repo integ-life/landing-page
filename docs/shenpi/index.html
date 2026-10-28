@@ -160,7 +160,7 @@ function docHTML(c){
   return `<div class="doc" id="docEl">
     <div class="org">路 人 审 批 所</div>
     <div class="title">审 批 单</div>
-    <div class="no">编号 ${c.id} · ${new Date(c.ts).toLocaleString('zh-CN',{hour12:false})}</div>
+    <div class="no">编号 ${esc(c.id)} · ${new Date(c.ts).toLocaleString('zh-CN',{hour12:false})}</div>
     <table><tr><td class="k">申请人</td><td>${esc(c.applicant)}</td><td class="k">分类</td><td>${esc(c.cat)}</td></tr>
     <tr><td class="k">申请事项</td><td colspan="3">${esc(c.matter)}</td></tr>
     ${c.amount?`<tr><td class="k">涉及金额</td><td colspan="3">¥${Number(c.amount).toLocaleString()}${v.result==='rejected'?' · <b style="color:#1d7a3a">本单已为你省下这笔钱</b>':v.result==='approved'?' · <b style="color:var(--red)">本所批准你剁手</b>':''}</td></tr>`:''}</table>
@@ -171,13 +171,16 @@ function docHTML(c){
     <div class="foot">本批复由路过的陌生人作出 · 不具法律效力，只具快乐效力</div>
   </div>
   <div class="actions">
-    <button class="btn red small" onclick="makePoster('${c.id}')">📸 生成审批单图片</button>
-    <button class="btn ghost small" onclick="shareCase('${c.id}')">🔗 复制链接喊朋友来盖章</button>
-    <button class="btn ghost small" onclick="document.querySelector('#myDoc').classList.add('hidden');history.replaceState(null,'',location.pathname)">关闭</button>
+    <button class="btn red small" data-poster="${esc(c.id)}">📸 生成审批单图片</button>
+    <button class="btn ghost small" data-share="${esc(c.id)}">🔗 复制链接喊朋友来盖章</button>
+    <button class="btn ghost small" data-close>关闭</button>
   </div>`;
 }
 function showDoc(c,scroll){
   const el=$('#myDoc');el.innerHTML=docHTML(c);el.classList.remove('hidden');
+  el.querySelectorAll('[data-poster]').forEach(b=>b.onclick=()=>makePoster(b.dataset.poster));
+  el.querySelectorAll('[data-share]').forEach(b=>b.onclick=()=>shareCase(b.dataset.share));
+  el.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>{el.classList.add('hidden');history.replaceState(null,'',location.pathname)});
   if(scroll)el.scrollIntoView({behavior:'smooth',block:'center'});
 }
 window.shareCase=function(id){
@@ -239,14 +242,14 @@ function renderQueue(){
     const div=document.createElement('div');div.className='queue-item';
     div.innerHTML=`<div class="matter">${esc(c.matter)}</div>
       <div class="meta">申请人 ${esc(c.applicant)} · ${esc(c.cat)} · 已有 ${v.total} 人盖章（通过 ${v.pass} / 驳回 ${v.reject}）</div>
-      ${stamped?`<div class="meta" style="color:#1d7a3a">✓ 你已盖章：${stamped==='pass'?'通过':'驳回'} · <a href="#" data-view="${c.id}">看审批单</a></div>`:`
+      ${stamped?`<div class="meta" style="color:#1d7a3a">✓ 你已盖章：${stamped==='pass'?'通过':'驳回'} · <a href="#" data-view="${esc(c.id)}">看审批单</a></div>`:`
       <div class="stampbox">
-        <div class="row"><input type="text" maxlength="40" placeholder="留一句神评论（可空）" id="in-${c.id}">
-        <button class="passbtn" data-pass="${c.id}">🈴 通过</button>
-        <button class="rejbtn" data-rej="${c.id}">驳回</button></div>
-        <div class="quick">${QUICK_PASS.map(t=>`<span data-qp="${c.id}" data-t="${t}">${t}</span>`).join('')}${QUICK_REJ.map(t=>`<span data-qr="${c.id}" data-t="${t}">${t}</span>`).join('')}</div>
+        <div class="row"><input type="text" maxlength="40" placeholder="留一句神评论（可空）" id="in-${esc(c.id)}">
+        <button class="passbtn" data-pass="${esc(c.id)}">🈴 通过</button>
+        <button class="rejbtn" data-rej="${esc(c.id)}">驳回</button></div>
+        <div class="quick">${QUICK_PASS.map(t=>`<span data-qp="${esc(c.id)}" data-t="${t}">${t}</span>`).join('')}${QUICK_REJ.map(t=>`<span data-qr="${esc(c.id)}" data-t="${t}">${t}</span>`).join('')}</div>
       </div>`}
-      ${stamped?'':`<div class="meta" style="margin-top:8px"><a href="#" data-view="${c.id}">围观这张审批单 →</a></div>`}`;
+      ${stamped?'':`<div class="meta" style="margin-top:8px"><a href="#" data-view="${esc(c.id)}">围观这张审批单 →</a></div>`}`;
     q.appendChild(div);
   });
   q.querySelectorAll('[data-pass]').forEach(b=>b.onclick=()=>doStamp(b.dataset.pass,'pass'));
@@ -256,7 +259,7 @@ function renderQueue(){
   q.querySelectorAll('[data-view]').forEach(b=>b.onclick=e=>{e.preventDefault();showDoc(cases.find(x=>x.id===b.dataset.view),true)});
 }
 async function doStamp(id,d,quick){
-  const inp=document.querySelector('#in-'+id);
+  const inp=document.getElementById('in-'+id);
   const comment=quick||(inp?inp.value.trim():'')||'阅。';
   myStamps[id]=d;localStorage.setItem('sp_mine',JSON.stringify(myStamps));
   if(!DEMO){try{const nc=await api('/api/cases/'+id+'/stamp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({d,c:comment})});
